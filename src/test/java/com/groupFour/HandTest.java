@@ -15,9 +15,7 @@ public class HandTest {
     @Test
     public void addCardTest() {
     Hand hand = new Hand();
-    Card card = new Card();
-    card.setSuit(Suit.DIAMONDS);
-    card.setRank(Rank.ACE);
+    Card card = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
     hand.addCard(card);
 
     boolean actual = hand.getCards().contains(card);
@@ -30,9 +28,7 @@ public class HandTest {
     @Test
     public void removeCard() {
         Hand hand = new Hand();
-        Card card = new Card();
-        card.setSuit(Suit.DIAMONDS);
-        card.setRank(Rank.ACE);
+        Card card = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
         hand.addCard(card);
         hand.removeCard(card);
 
@@ -46,36 +42,21 @@ public class HandTest {
     @Test
     public void handToStringTest() {
         Hand hand = new Hand();
-        Card card = new Card();
-        card.setSuit(Suit.DIAMONDS);
-        card.setRank(Rank.ACE);
+        Card card = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
         hand.addCard(card);
 
-        String expected = "";
+        String expected = "ACE of DIAMONDS";
         String actual = hand.handToString();
-    }
-
-    @Test
-    public void handToStringAbrevTest() {
-        Hand hand = new Hand();
-        Card card = new Card();
-        card.setSuit(Suit.DIAMONDS);
-        card.setRank(Rank.ACE);
-        hand.addCard(card);
-
-        String expected = "";
-        String actual = hand.handToStringAbrev();
     }
 
     @Test
     public void getCards() {
         Hand hand = new Hand();
-        Card card = new Card();
-        card.setSuit(Suit.DIAMONDS);
-        card.setRank(Rank.ACE);
+        Card card = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
+
         hand.addCard(card);
 
-        String expected = "";
+        String expected = "ACE of DIAMONDS";
         String actual = hand.getCards().toString();
     }
 }

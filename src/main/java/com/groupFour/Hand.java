@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Hand {
 
-    private ArrayList<Card> hand;
+    private ArrayList<Card> hand = new ArrayList<Card>();
 
     public void addCard(Card card){
         hand.add(card);
@@ -18,13 +18,7 @@ public class Hand {
         for (Card card: this.hand){
             builder.append(card.toString()).append("\n");
         }return builder.toString();
-    }
 
-    public String handToStringAbrev(){
-        StringBuilder builder = new StringBuilder();
-        for (Card card: this.hand){
-            builder.append(card.toStringAbrev()).append("\n");
-        }return builder.toString();
     }
 
     public ArrayList<Card> getCards(){

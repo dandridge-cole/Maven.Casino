@@ -2,6 +2,14 @@ package com.groupFour;
 
 public class Player {
 
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public Player() {
+        this.name = "Player1";
+    }
+
     private String name;
 
     public Double getWallet() {
