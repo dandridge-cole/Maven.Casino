@@ -11,6 +11,8 @@ public class Blackjack extends GamblingGame {
     private Deck deck;
     private BlackjackPlayer player;
 
+    public Blackjack() {super();}
+
     public void placeBet(Double amount) {
 
     }

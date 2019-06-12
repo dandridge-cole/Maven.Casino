@@ -4,11 +4,12 @@ public abstract class Game {
 
     private Boolean donePlaying;
 
+    public Game(){this.donePlaying=false;}
+
     public abstract void takeTurn();
 
-
     public void exit(){
-        // flip done playing
+        this.donePlaying=true;
     }
 
     public Boolean isDonePlaying(){return donePlaying;}
