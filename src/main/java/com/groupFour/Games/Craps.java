@@ -9,6 +9,8 @@ public class Craps extends GamblingGame {
     private Dice dice;
     private CrapsPlayer player;
 
+    public Craps() {super();}
+
     public void placeBet(Double amount) {
 
     }
