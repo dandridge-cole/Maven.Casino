@@ -1,32 +1,48 @@
 package com.groupFour;
 
-import java.util.Stack;
+import java.util.*;
 
 public class Deck {
 
-    private Stack<Card> draw;
-    private Stack<Card> discard;
+    Stack<Card> deck;
+//    private Stack<Card> draw;
+//    private Stack<Card> discard;
 
     public Deck() {
-        // set up a fresh deck
+        deck = new Stack<Card>();
+        for (Card.Suit suit : Card.Suit.values()){
+            for (Card.Rank rank : Card.Rank.values()) {
+                deck.add(new Card(rank, suit));
+            }
+        }
     }
+
     // Other constructors for modified decks, multiple decks, etc.
 
-    public void shuffle(Stack<Card> pickDeck){}
 
-    public Card getCard(Stack<Card> pickDeck){
-        return null; // return a pop off the stack
+    public void shuffle(){
+        Collections.shuffle(deck);
     }
 
-    public void putCard(Stack<Card> pickDeck){
-        // push a card onto the stack
+    public Card getCard(){
+        return deck.pop(); // return a pop off the stack
     }
 
-    public void removeCard(Card toRemove){
-        // removes toRemove from deck
+//    public void putCard(Stack<Card> pickDeck){
+//        // push a card onto the stack
+//    }
+//
+//    public void removeCard(Card toRemove){
+//        // removes toRemove from deck
+//    }
+//
+//    public void renewDraw(){
+//        // Shuffle discard into draw pile
+//    }
+
+    @Override
+    public String toString() {
+        return "Deck " + deck;
     }
 
-    public void renewDraw(){
-        // Shuffle discard into draw pile
-    }
 }

@@ -7,12 +7,25 @@ import static org.junit.Assert.*;
 public class DeckTest {
 
     @Test
-    public void shuffle() {
+    public void newDeck() {
+        Deck deck = new Deck();
+        System.out.println(deck.toString());
     }
 
     @Test
-    public void getCard() {
+    public void shuffle() {
+        Deck deck = new Deck();
+        deck.shuffle();
+        System.out.println(deck.toString());
     }
+
+    //??How to test this since it is not a string, but enums
+    @Test
+    public void getCard() {
+        Deck deck = new Deck();
+        assertEquals("King of Diamonds", deck.getCard());
+    }
+
 
     @Test
     public void putCard() {
