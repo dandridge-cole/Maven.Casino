@@ -4,45 +4,72 @@ import java.util.*;
 
 public class Deck {
 
-    Stack<Card> deck;
-    Stack<Card> discard;
-    //    private Stack<Card> draw;
+    Stack<Card> draw;
+    Stack<Card> discard = new Stack<Card>();
 
-    public Deck() {
-        deck = new Stack<Card>();
+
+
+    // Other constructors for modified decks, multiple decks, etc.
+
+//create a new draw Stack of 52 cards
+    public Deck(){
+        draw = new Stack<Card>();
         for (Card.Suit suit : Card.Suit.values()){
             for (Card.Rank rank : Card.Rank.values()) {
-                deck.add(new Card(rank, suit));
+                draw.add(new Card(rank, suit));
             }
         }
     }
 
-    // Other constructors for modified decks, multiple decks, etc.
-
 
     public void shuffle(){
-        Collections.shuffle(deck);
+        Collections.shuffle(draw);
     }
 
-    public Card getCard(){
-        return deck.pop(); // return a pop off the stack
+    public int drawSize(){
+        return draw.size();
     }
 
-    public void putCard(Card toPut){
-        discard.push(toPut);
+    public int discardSize(){
+        return discard.size();
     }
 
-    public void removeCard(Card toRemove){
-       deck.remove(toRemove);
+    public Card getCardFromDraw(){
+        return draw.pop();
     }
 
+    public Card getCardFromDiscard(){
+        return discard.pop();
+    }
+
+    public void putCardOnDiscard(Card card){
+        discard.push(card);
+    }
+
+    //used to customize the draw Stack for certain games
+    public void removeCardsFromDraw(Card.Rank rank){
+        System.out.println("Removing " + rank);
+        for (int i = 0; i < drawSize(); i++) {
+            if (draw.get(i).getRank().equals(rank)) {
+                draw.remove(draw.get(i));
+            }
+        }
+    }
+
+    // used to add discard pile into draw pile
     public void renewDraw(){
-        // Shuffle discard into draw pile
-    }
+        draw.addAll(discard);
+        }
+
 
     @Override
     public String toString() {
-        return "Deck " + deck;
+        return "Deck " + draw;
     }
+
+    public String discardToString() {
+        return "Discard pile: " + discard;
+    }
+
 
 }

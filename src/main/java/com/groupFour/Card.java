@@ -19,6 +19,9 @@ public class Card {
         this.suit = suit;
     }
 
+    //null constructor
+    public Card(){}
+
     public Rank getRank() {
         return rank;
     }
