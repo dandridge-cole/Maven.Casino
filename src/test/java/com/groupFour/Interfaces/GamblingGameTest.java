@@ -39,7 +39,6 @@ public class GamblingGameTest {
         Assert.assertEquals(expected,actual);
     }
 
-
     @Test
     public void setMaxBetTooLow() { // can't allow maxBet < minBet
         Blackjack bjGame = new Blackjack();
@@ -50,7 +49,6 @@ public class GamblingGameTest {
         Double actual = bjGame.getMaxBet();
         Assert.assertEquals(expected,actual);
     }
-
 
     @Test
     public void getMinBet() {
@@ -71,7 +69,6 @@ public class GamblingGameTest {
         Assert.assertEquals(expected,actual);
     }
 
-
     @Test
     public void setMinBetNegative() {
         Blackjack bjGame = new Blackjack();
@@ -82,7 +79,6 @@ public class GamblingGameTest {
         Double actual = bjGame.getMinBet();
         Assert.assertEquals(expected,actual);
     }
-
 
     @Test
     public void setMinBetBeforeMaxBet() { // can't allow maxBet < minBet, so maxBet must be set higher than minBet before minbet is set.
