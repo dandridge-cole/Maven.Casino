@@ -9,7 +9,13 @@ public class Craps extends GamblingGame {
     private Dice dice;
     private CrapsPlayer player;
 
-    public Craps() {super();}
+    public Craps(CrapsPlayer player) {
+        super();
+        this.player = player;
+        this.dice = new Dice();
+    }
+    public Craps() { this(new CrapsPlayer());}
+
 
     public void placeBet(Double amount) {
 
