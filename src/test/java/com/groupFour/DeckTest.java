@@ -23,7 +23,7 @@ public class DeckTest {
     @Test
     public void getCard() {
         Deck deck = new Deck();
-        assertEquals("King of Diamonds", deck.getCard());
+        assertEquals("KING of DIAMONDS", deck.getCard()); //last card in an unshuffled deck
     }
 
 
