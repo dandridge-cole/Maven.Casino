@@ -3,7 +3,7 @@ package com.groupFour;
 import com.groupFour.Games.*;
 
 public class Mediator {
-    Console in = new Console();
+    Console in = new Console(System.in, System.out);
 
     public void startGame(Integer choice){
         switch(choice){
