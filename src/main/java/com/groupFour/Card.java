@@ -36,10 +36,11 @@ public class Card {
     }
 
     public String toString(){
-        return rank + " of " + suit + "\n";
+        return (rank + " of " + suit);
     }
 
     public String toStringAbrev(){
         return null;
     }
+
 }

@@ -8,6 +8,12 @@ public class BlackjackPlayer implements GamblingPlayer {
 
     private Player player;
     private Hand hand;
+    private Double balance;
+
+    public BlackjackPlayer(Double balance) {
+    this.balance = balance;
+
+   }
 
     public Double getBalance() {
         return null;

@@ -2,6 +2,8 @@ package com.groupFour;
 
 import org.junit.Test;
 
+import java.util.Stack;
+
 import static org.junit.Assert.*;
 
 public class DeckTest {
@@ -19,16 +21,19 @@ public class DeckTest {
         System.out.println(deck.toString());
     }
 
-    //??How to test this since it is not a string, but enums
     @Test
     public void getCard() {
         Deck deck = new Deck();
-        assertEquals("KING of DIAMONDS", deck.getCard()); //last card in an unshuffled deck
+        assertEquals("KING of DIAMONDS\n", deck.getCard().toString()); //last card in an unshuffled deck
     }
 
 
     @Test
     public void putCard() {
+//        Stack<Card> discard = new  Stack<Card>();
+//
+//
+//
     }
 
     @Test

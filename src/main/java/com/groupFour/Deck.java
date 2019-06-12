@@ -5,8 +5,8 @@ import java.util.*;
 public class Deck {
 
     Stack<Card> deck;
-//    private Stack<Card> draw;
-//    private Stack<Card> discard;
+    Stack<Card> discard;
+    //    private Stack<Card> draw;
 
     public Deck() {
         deck = new Stack<Card>();
@@ -28,17 +28,17 @@ public class Deck {
         return deck.pop(); // return a pop off the stack
     }
 
-//    public void putCard(Stack<Card> pickDeck){
-//        // push a card onto the stack
-//    }
-//
-//    public void removeCard(Card toRemove){
-//        // removes toRemove from deck
-//    }
-//
-//    public void renewDraw(){
-//        // Shuffle discard into draw pile
-//    }
+    public void putCard(Card toPut){
+        discard.push(toPut);
+    }
+
+    public void removeCard(Card toRemove){
+       deck.remove(toRemove);
+    }
+
+    public void renewDraw(){
+        // Shuffle discard into draw pile
+    }
 
     @Override
     public String toString() {

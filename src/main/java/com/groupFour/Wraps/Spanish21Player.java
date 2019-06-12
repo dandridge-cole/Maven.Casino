@@ -8,6 +8,11 @@ public class Spanish21Player implements GamblingPlayer {
 
     private Player player;
     private Hand hand;
+    private  Double balance;
+
+    public Spanish21Player(Double balance) {
+        this.balance = balance;
+    }
 
     public Double getBalance(){
         return null;
