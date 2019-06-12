@@ -7,8 +7,6 @@ public class Deck {
     Stack<Card> draw;
     Stack<Card> discard = new Stack<Card>();
 
-
-
     // Other constructors for modified decks, multiple decks, etc.
 
 //create a new draw Stack of 52 cards
