@@ -11,5 +11,7 @@ public abstract class Game {
         // flip done playing
     }
 
+    public Boolean isDonePlaying(){return donePlaying;}
+
     public abstract void setup();
 }
