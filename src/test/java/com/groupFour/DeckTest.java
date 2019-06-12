@@ -108,6 +108,7 @@ public class DeckTest {
         int actual = deck.drawSize();
         assertEquals(expected, actual);
         System.out.println("After renewDraw size is " + deck.drawSize());
+        System.out.println("Discard size is " + deck.discardSize());
     }
 
 }

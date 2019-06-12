@@ -57,6 +57,7 @@ public class Deck {
     // used to add discard pile into draw pile
     public void renewDraw(){
         draw.addAll(discard);
+        discard.clear();
         }
 
 
