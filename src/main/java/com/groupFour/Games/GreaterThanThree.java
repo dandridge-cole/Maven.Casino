@@ -9,6 +9,13 @@ public class GreaterThanThree extends Game {
     private Dice dice;
     private Player player;
 
+    public GreaterThanThree(Player player){
+        this.player = player;
+        this.dice=new Dice();
+    }
+
+    public GreaterThanThree(){this(new Player());}
+
     public void reRoll(){
 
     }

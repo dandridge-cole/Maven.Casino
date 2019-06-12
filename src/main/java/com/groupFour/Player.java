@@ -2,13 +2,7 @@ package com.groupFour;
 
 public class Player {
 
-    public Player(String name) {
-        this.name = name;
-    }
-
-    public Player() {
-        this.name = "Player1";
-    }
+    static final Double DEFAULT_WALLET = 5000.0;
 
     private String name;
 
@@ -22,6 +16,16 @@ public class Player {
 
     private Double wallet;
 
+    public Player(String name, Double wallet) {
+        this.name = name;
+        this.wallet = wallet;
+    }
+
+    public Player() {
+        this.name = "Player 1";
+        this.wallet = DEFAULT_WALLET;
+    }
+
     public String getName() {
 
         return name;
@@ -31,4 +35,10 @@ public class Player {
 
         this.name = name;
     }
+
+    public Double getWallet(){
+        return this.wallet;
+    }
+
+
 }

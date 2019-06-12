@@ -11,6 +11,14 @@ public class GoFish extends Game {
     private Deck deck;
     private GoFishPlayer player;
 
+    public GoFish(GoFishPlayer player){
+        this.player=player;
+        this.deck=new Deck();
+        this.opponentHand=new Hand();
+    }
+
+    public GoFish(){this(new GoFishPlayer());}
+
     public void takeTurn() {
 
     }
