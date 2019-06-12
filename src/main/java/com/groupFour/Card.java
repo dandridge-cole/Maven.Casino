@@ -1,19 +1,26 @@
 package com.groupFour;
 
-enum Suit{
-    SPADES, HEARTS, CLUBS, DIAMONDS
-}
-
-enum Rank{
-    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
-}
 
 public class Card {
+
+    public enum Rank{
+        ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
+    }
+
+    public enum Suit{
+        SPADES, HEARTS, CLUBS, DIAMONDS
+    }
 
     private Suit suit;
     private Rank rank;
 
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
 
+    //null constructor
+    public Card(){}
 
     public Rank getRank() {
         return rank;
@@ -32,10 +39,11 @@ public class Card {
     }
 
     public String toString(){
-        return null;
+        return (rank + " of " + suit);
     }
 
     public String toStringAbrev(){
         return null;
     }
+
 }
