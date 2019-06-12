@@ -2,6 +2,9 @@ package com.groupFour;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Stack;
+
 import static org.junit.Assert.*;
 
 public class DeckTest {
@@ -58,10 +61,13 @@ public class DeckTest {
     public void putCardOnDiscardTest() {
         Deck deck = new Deck();
         Card card = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
+        System.out.println("Discard size is " + deck.discardSize()); //Discard pile starts at 0
         deck.putCardOnDiscard(card);
+        int expected = 1;
+        int actual = deck.discardSize();
+        assertEquals(expected, actual);
         System.out.println("Discard size is " + deck.discardSize());
         System.out.println(deck.discardToString());
-
     }
 
     @Test
@@ -97,6 +103,16 @@ public class DeckTest {
     }
 
     @Test
+    //Test that when cards are removed the deck no longer contains them
+    public void removeCardsFromDrawTest2() {
+        Deck deck = new Deck();
+        Card.Rank removeRank;
+        removeRank = Card.Rank.TEN;
+        deck.removeCardsFromDraw(removeRank);
+        assertEquals(false, deck.draw.contains(Card.Rank.TEN));
+    }
+
+        @Test
     public void renewDrawTest() {
         Deck deck = new Deck();
         Card card = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
@@ -108,6 +124,7 @@ public class DeckTest {
         int actual = deck.drawSize();
         assertEquals(expected, actual);
         System.out.println("After renewDraw size is " + deck.drawSize());
+        assertEquals(0, deck.discardSize());
         System.out.println("Discard size is " + deck.discardSize());
     }
 
