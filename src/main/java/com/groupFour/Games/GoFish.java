@@ -7,6 +7,7 @@ import com.groupFour.Wraps.GoFishPlayer;
 
 public class GoFish extends Game {
 
+    static final String gameName = "Go Fish";
     private Hand opponentHand;
     private Deck deck;
     private GoFishPlayer player;

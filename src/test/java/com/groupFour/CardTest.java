@@ -41,7 +41,6 @@ public class CardTest {
         Assert.assertEquals(expected, actual);
     }
 
-
     @Test
     public void toString1() {
         Card card = new Card(Card.Rank.FOUR, Card.Suit.SPADES);
@@ -52,5 +51,10 @@ public class CardTest {
 
     @Test
     public void toStringAbrev() {
+        Card card = new Card(Card.Rank.ACE, Card.Suit.DIAMONDS);
+        String expected = "A\u2662";
+        String actual = (card.toStringAbrev());
+        Assert.assertEquals(expected, actual);
+        System.out.println(actual);
     }
 }
