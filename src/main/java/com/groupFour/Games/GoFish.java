@@ -7,14 +7,14 @@ import com.groupFour.Wraps.GoFishPlayer;
 
 public class GoFish extends Game {
 
-    private Hand opponentHand;
+    private Hand house;
     private Deck deck;
     private GoFishPlayer player;
 
     public GoFish(GoFishPlayer player){
-        this.player=player;
-        this.deck=new Deck();
-        this.opponentHand=new Hand();
+        this.player = player;
+        this.deck = new Deck();
+        this.house = new Hand();
     }
 
     public GoFish(){this(new GoFishPlayer());}
