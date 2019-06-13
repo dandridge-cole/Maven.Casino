@@ -12,7 +12,7 @@ public class Craps extends GamblingGame {
     public Craps(CrapsPlayer player) {
         super();
         this.player = player;
-        this.dice = new Dice();
+        this.dice = new Dice(2);
     }
     public Craps() { this(new CrapsPlayer());}
 

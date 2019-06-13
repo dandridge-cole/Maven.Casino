@@ -18,7 +18,7 @@ public class MediatorTest {
 
     @Test
     public void initPlayerTest(){
-        Player player= null;
+        Player player = null;
         Mediator med = new Mediator();
         med.initPlayer(player);
         Assert.assertNotNull(player);
