@@ -11,7 +11,7 @@ public class DiceTest {
     @Test
     public void DiceNullTest(){
         Dice dice = new Dice(0);
-        Integer actual = dice.rollDice();
+        ArrayList<Integer> actual = dice.rollDice();
         Integer expected = null;
 
         Assert.assertEquals(actual, expected);
@@ -22,9 +22,13 @@ public class DiceTest {
         Dice dice = new Dice(1);
         int min = 1;
         int max = 6;
-        Integer actual = dice.rollDice();
+        ArrayList<Integer> temp = dice.rollDice();
+        int actual = 0;
+        for (int i: temp) {
+            actual += i;
+        }
         Assert.assertTrue(actual <= max);
-        Assert.assertTrue(actual>= min);
+        Assert.assertTrue(actual >= min);
     }
 
     @Test
@@ -32,7 +36,11 @@ public class DiceTest {
         Dice dice = new Dice(2);
         int min = 2;
         int max = 12;
-        Integer actual = dice.rollDice();
+        ArrayList<Integer> temp = dice.rollDice();
+        int actual = 0;
+        for (int i: temp) {
+            actual += i;
+        }
         Assert.assertTrue(actual <= max);
         Assert.assertTrue(actual >= min);
     }
@@ -42,7 +50,12 @@ public class DiceTest {
         Dice dice = new Dice(3);
         int min = 3;
         int max = 18;
-        ArrayList<Integer> actual = dice.rollDice();
+
+        ArrayList<Integer> temp = dice.rollDice();
+        int actual = 0;
+        for (int i: temp) {
+            actual += i;
+        }
         Assert.assertTrue(actual <= max);
         Assert.assertTrue(actual >= min);
     }
