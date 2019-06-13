@@ -1,5 +1,6 @@
 package com.groupFour.Games;
 
+import com.groupFour.Card;
 import com.groupFour.Deck;
 import com.groupFour.Hand;
 import com.groupFour.Interfaces.GamblingGame;
@@ -26,6 +27,19 @@ public class Blackjack extends GamblingGame {
     }
 
     public void placeBet(Double amount) {
+
+    }
+
+    public void dealCards(){
+
+    }
+
+    public void dealCardToDealer(){
+        Card card = new Card();
+        this.dealerHand.addCard(card);
+    }
+
+    public void dealCardToUser(){
 
     }
 
