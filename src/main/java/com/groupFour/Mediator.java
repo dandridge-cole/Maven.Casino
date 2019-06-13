@@ -4,6 +4,7 @@ import com.groupFour.Games.*;
 
 public class Mediator {
     Console in = new Console(System.in,System.out);
+    Player player;
 
 
     public void startGame(Integer choice){
@@ -36,5 +37,15 @@ public class Mediator {
         }
     }
 
-    private void initPlayer(){}
+    void run(){}
+
+    public void initPlayer(Player player){}
+
+    public void initPlayerWallet(Player player){}
+
+    private void listGames(){}
+
+    private void greetPlayer(){}
+
+    private void mainMenu(){}
 }
