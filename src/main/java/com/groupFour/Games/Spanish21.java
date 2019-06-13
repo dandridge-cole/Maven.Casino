@@ -11,7 +11,14 @@ public class Spanish21 extends GamblingGame {
     private Deck deck;
     private Spanish21Player player;
 
-    public Spanish21(){super();}
+    public Spanish21(Spanish21Player player){
+        super();
+        this.player = player;
+        this.dealerHand=new Hand();
+        this.deck=new Deck();
+    }
+
+    public Spanish21(){this(new Spanish21Player());}
 
     public void placeBet(Double amount) {
 

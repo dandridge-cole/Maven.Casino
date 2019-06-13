@@ -1,5 +1,6 @@
 package com.groupFour.Wraps;
 
+import com.groupFour.Player;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +12,8 @@ public class BlackjackPlayerTest {
     public void getBalance() {
         //Given
         Double expected = 500.0;
-        BlackjackPlayer jack = new BlackjackPlayer(expected);
+        Player player = new Player("Player 1", expected);
+        BlackjackPlayer jack = new BlackjackPlayer(player);
         //When
         Double actual = jack.getBalance();
         //Then
@@ -21,8 +23,9 @@ public class BlackjackPlayerTest {
     @Test
     public void setBalance() {
         //Given
-        BlackjackPlayer jack = new BlackjackPlayer((double) 500);
         Double expected = 400.0;
+        Player player = new Player("Player 1", expected);
+        BlackjackPlayer jack = new BlackjackPlayer(player);
         //When
         jack.setBalance(expected);
         Double actual = jack.getBalance();
@@ -33,8 +36,8 @@ public class BlackjackPlayerTest {
     @Test
     public void addToBalance() {
         //Given
-
-        BlackjackPlayer jack = new BlackjackPlayer(400.0);
+        Player player = new Player("Player 1", 400.0);
+        BlackjackPlayer jack = new BlackjackPlayer(player);
         Double expectedbalance = 600.0;
 
 
@@ -48,7 +51,8 @@ public class BlackjackPlayerTest {
     @Test
     public void subtractFromBalance() {
         //Given
-        BlackjackPlayer jack = new BlackjackPlayer(600.0);
+        Player player = new Player("Player 1", 600.0);
+        BlackjackPlayer jack = new BlackjackPlayer(player);
         Double expectedBalance = 400.0;
         //When
         jack.subtractFromBalance(200.0);
