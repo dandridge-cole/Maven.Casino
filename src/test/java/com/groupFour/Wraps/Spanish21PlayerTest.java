@@ -1,5 +1,6 @@
 package com.groupFour.Wraps;
 
+import com.groupFour.Player;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +12,8 @@ public class Spanish21PlayerTest {
     public void getBalance() {
         //Given
         Double expected = 500.0;
-        Spanish21Player spanish = new Spanish21Player(expected);
+        Player player = new Player("Player 1", expected);
+        Spanish21Player spanish = new Spanish21Player(player);
         //When
         Double actual = spanish.getBalance();
         //Then
@@ -21,7 +23,8 @@ public class Spanish21PlayerTest {
     @Test
     public void setBalance() {
         //Given
-        Spanish21Player spanish = new Spanish21Player((double) 500);
+        Player player = new Player("Player 1", 500.0);
+        Spanish21Player spanish = new Spanish21Player(player);
         Double expected = 400.0;
         //When
         spanish.setBalance(expected);
@@ -33,7 +36,8 @@ public class Spanish21PlayerTest {
     @Test
     public void addToBalance() {
         //Given
-        Spanish21Player spanish = new Spanish21Player(400.0);
+        Player player = new Player("Player 1", 400.0);
+        Spanish21Player spanish = new Spanish21Player(player);
         Double expectedbalance = 600.0;
         //When
         spanish.addToBalance(200.0);
@@ -45,7 +49,8 @@ public class Spanish21PlayerTest {
     @Test
     public void subtractFromBalance() {
         //Given
-        Spanish21Player spanish = new Spanish21Player(600.0);
+        Player player = new Player("Player 1", 600.0);
+        Spanish21Player spanish = new Spanish21Player(player);
         Double expectedBalance = 400.0;
         //When
         spanish.subtractFromBalance(200.0);
