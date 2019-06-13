@@ -7,7 +7,7 @@ public class Player {
     private String name;
 
     public Double getWallet() {
-        return wallet;
+        return this.wallet;
     }
 
     public void setWallet(Double wallet) {
@@ -34,10 +34,6 @@ public class Player {
     public void setName(String name) {
 
         this.name = name;
-    }
-
-    public Double getWallet(){
-        return this.wallet;
     }
 
 
