@@ -4,8 +4,9 @@ import java.util.*;
 
 public class Deck {
 
-    Stack<Card> draw;
-    Stack<Card> discard = new Stack<Card>();
+    private Stack<Card> draw;
+
+    private Stack<Card> discard = new Stack<Card>();
 
     // Other constructors for modified decks, multiple decks, etc.
 
@@ -60,6 +61,9 @@ public class Deck {
         discard.clear();
         }
 
+    public Stack<Card> getDraw() {
+        return draw;
+    }
 
     @Override
     public String toString() {
@@ -69,6 +73,7 @@ public class Deck {
     public String discardToString() {
         return "Discard pile: " + discard;
     }
+
 
 
 }

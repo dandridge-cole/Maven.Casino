@@ -109,7 +109,7 @@ public class DeckTest {
         Card.Rank removeRank;
         removeRank = Card.Rank.TEN;
         deck.removeCardsFromDraw(removeRank);
-        assertEquals(false, deck.draw.contains(Card.Rank.TEN));
+        assertEquals(false, deck.getDraw().contains(Card.Rank.TEN));
     }
 
         @Test

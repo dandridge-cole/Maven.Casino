@@ -11,7 +11,7 @@ public class GreaterThanThree extends Game {
 
     public GreaterThanThree(Player player){
         this.player = player;
-        this.dice=new Dice();
+ //       this.dice=new Dice();
     }
 
     public GreaterThanThree(){this(new Player());}
