@@ -13,8 +13,8 @@ public class GoFish extends Game {
     private GoFishPlayer goFishPlayer;
 
     private Deck deck;
-    private int[] house = new int[13];
-    private int[] player = new int[13];
+    private int[] house = new int[14]; //0 will not be used, Ace=1 King=13
+    private int[] player = new int[14];
     private int turn = 0;  //0 is player, 1 is house
     private int countSetHouse = 0;  //counts # of sets house won
     private int countSetPlayer = 0; //counts # of sets player won
@@ -99,10 +99,12 @@ public class GoFish extends Game {
             }
             else {
                 Card card = deck.getCardFromDraw();
-                card.getRank();
+                System.out.println(card.getValue());
+
                 if (turn == 0){
                     System.out.println("Your card: " + card.toString());
                 }
+
                 // addToBins
             }
 

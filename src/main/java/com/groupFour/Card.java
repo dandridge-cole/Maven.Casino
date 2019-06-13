@@ -4,7 +4,9 @@ package com.groupFour;
 public class Card {
 
     public enum Rank{
-        ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
+        ACE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(11), QUEEN(12), KING(13);
+        int value;
+        Rank(int value) { this.value = value; }
     }
 
     public enum Suit{
@@ -25,6 +27,8 @@ public class Card {
     public Rank getRank() {
         return rank;
     }
+
+    public int getValue() { return rank.value; }  //added to return numbers for cards Ace=1 King=13
 
     public void setRank(Rank rank) {
         this.rank = rank;
