@@ -9,6 +9,7 @@ import com.groupFour.Wraps.BlackjackPlayer;
 
 public class Blackjack extends GamblingGame {
 
+    static final String gameName = "Blackjack";
     private Hand dealerHand;
     private Deck deck;
     private BlackjackPlayer player;
