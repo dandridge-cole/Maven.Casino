@@ -7,7 +7,7 @@ import com.groupFour.Player;
 public class BlackjackPlayer implements GamblingPlayer {
 
     private Player player;
-    private Hand hand;
+    public static Hand hand;
     private Double balance;
 
     public BlackjackPlayer(Player player) {
@@ -17,7 +17,7 @@ public class BlackjackPlayer implements GamblingPlayer {
    }
 
    public BlackjackPlayer(){
-        this.player=new Player();
+       this.player=new Player();
        this.balance=this.player.getWallet();
        this.hand = new Hand();
    }

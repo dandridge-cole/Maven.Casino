@@ -7,15 +7,18 @@ import com.groupFour.Wraps.BlackjackPlayer;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.groupFour.Wraps.BlackjackPlayer.hand;
+
 public class Blackjack extends GamblingGame {
 
     static final String gameName = "Blackjack";
-    private Hand dealerHand;
-    private Deck deck;
+    public static Hand dealerHand;
+    private static Deck deck;
     private BlackjackPlayer player;
-    private Console console = new Console(System.in, System.out);
+    //private Console console = new Console(System.in, System.out);
     private HashMap<String, Integer> blackJackValue = new HashMap<String, Integer>();
     private int handValue;
+
 
 
 
@@ -38,19 +41,33 @@ public class Blackjack extends GamblingGame {
     }
 
     public void dealCards(){
+        dealCardToUser(2);
+        dealCardToDealer(1);
+        System.out.println("Player draws: \n" + BlackjackPlayer.hand.handToString());
+        System.out.println("Dealer shows: " + dealerHand.handToString());
+        dealCardToDealer(1);
 
     }
 
-    public void dealCardToDealer(){
-        Card card = this.deck.getCardFromDraw();
-        this.dealerHand.addCard(card);
-        console.println(card.toStringAbrev());
-        console.println(dealerHand.handToString() + " Dealer has ");
+    public void dealCardToDealer(int drawSize){
+        Card card;
+        for (int j = 0; j< drawSize; j++) {
+            card = deck.getCardFromDraw();
+            dealerHand.addCard(card);
+        }
+
+        //console.println(card.toString());
+        //console.println(dealerHand.handToString() + " Dealer has " + calculateHandValue(dealerHand));
 
     }
 
-    public void dealCardToUser(){
+    public void dealCardToUser(int drawSize) {
+        Card card;
+        for (int j = 0; j < drawSize; j++) {
+            card = deck.getCardFromDraw();
+            hand.addCard(card);
 
+        }
     }
 
     public void resolve() {
@@ -83,11 +100,7 @@ public class Blackjack extends GamblingGame {
 
     }
 
-    public int getHandValue() {
-        return handValue;
-    }
-
-    public int setHandValue(Hand hand){
+    public int calculateHandValue(Hand hand){
         handValue = 0;
         for (Card card:hand.getCards()){
             int value = blackJackValue.get(card.getRank().toString());
@@ -98,9 +111,6 @@ public class Blackjack extends GamblingGame {
             if (card.getRank()== Card.Rank.ACE) containsAce=true;
                 if (containsAce && handValue<12)handValue+=10;
         }
-
-
-
         return handValue;
 
 

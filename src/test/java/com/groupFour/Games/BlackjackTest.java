@@ -1,9 +1,10 @@
 package com.groupFour.Games;
-
 import com.groupFour.Card;
+import com.groupFour.Deck;
 import com.groupFour.Hand;
 import com.groupFour.Interfaces.GamblingGame;
 import com.groupFour.Interfaces.GamblingGameInterface;
+import com.groupFour.Wraps.BlackjackPlayer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,12 +21,29 @@ public class BlackjackTest {
 
     @Test
     public void dealCards() {
+        Blackjack blackjack = new Blackjack();
+        blackjack.dealCards();
 
+        int expectedDealer = 2;
+        int expectedUser = 2;
+
+        int actualDealer = Blackjack.dealerHand.getCards().size();
+        int actualUser = BlackjackPlayer.hand.getCards().size();
+
+        Assert.assertEquals(expectedDealer,actualDealer);
+        Assert.assertEquals(expectedUser, actualUser);
     }
 
     @Test
-    public void dealCardToDealer() {
+    public void dealCardToDealerTest() {
+        Blackjack blackjack = new Blackjack();
+        blackjack.dealCardToDealer(3);
 
+        int expected = 3;
+        int actual = blackjack.dealerHand.getCards().size();
+
+        Assert.assertEquals(expected,actual);
+        System.out.println(blackjack.dealerHand.handToString());
 
     }
 
@@ -51,7 +69,7 @@ public class BlackjackTest {
     }
 
     @Test
-    public void setHandValueTest(){
+    public void calculateHandValueTest(){
         Blackjack blackjack = new Blackjack();
         Hand hand = new Hand();
         blackjack.setup();
@@ -61,12 +79,48 @@ public class BlackjackTest {
         hand.addCard(card);
         hand.addCard(card2);
         hand.addCard(card3);
-        int handValue = blackjack.setHandValue(hand);
+        int handValue = blackjack.calculateHandValue(hand);
 
         int expected = 13;
         int actual = handValue;
 
         Assert.assertEquals(expected,actual);
 
+    }
+
+    @Test
+    public void placeBet1() {
+    }
+
+    @Test
+    public void dealCards1() {
+    }
+
+    @Test
+    public void dealCardToDealer1() {
+    }
+
+    @Test
+    public void dealCardToUser1() {
+    }
+
+    @Test
+    public void resolve1() {
+    }
+
+    @Test
+    public void validateBet1() {
+    }
+
+    @Test
+    public void takeTurn1() {
+    }
+
+    @Test
+    public void setup1() {
+    }
+
+    @Test
+    public void calculateHandValue() {
     }
 }
