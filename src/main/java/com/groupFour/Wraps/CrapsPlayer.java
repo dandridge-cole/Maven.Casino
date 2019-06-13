@@ -10,8 +10,16 @@ public class CrapsPlayer implements GamblingPlayer {
     private Hand hand;
     private Double balance;
 
-    public CrapsPlayer(Double balance) {
-        this.balance = balance;
+
+    public CrapsPlayer(Player player) {
+        this.player = player;
+        this.balance=this.player.getWallet();
+        this.hand = new Hand();
+    }
+    public CrapsPlayer() {
+        this.player=new Player();
+        this.balance=this.player.getWallet();
+        this.hand = new Hand();
     }
 
     public Double getBalance(){

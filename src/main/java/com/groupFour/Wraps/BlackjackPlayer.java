@@ -10,9 +10,16 @@ public class BlackjackPlayer implements GamblingPlayer {
     private Hand hand;
     private Double balance;
 
-    public BlackjackPlayer(Double balance) {
-    this.balance = balance;
+    public BlackjackPlayer(Player player) {
+        this.player = player;
+        this.balance=this.player.getWallet();
+        this.hand = new Hand();
+   }
 
+   public BlackjackPlayer(){
+        this.player=new Player();
+       this.balance=this.player.getWallet();
+       this.hand = new Hand();
    }
 
     public Double getBalance() {
