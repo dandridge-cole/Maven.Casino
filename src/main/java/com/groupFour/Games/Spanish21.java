@@ -7,6 +7,7 @@ import com.groupFour.Wraps.Spanish21Player;
 
 public class Spanish21 extends GamblingGame {
 
+    public static final String gameName = "Spanish 21";
     private Hand dealerHand;
     private Deck deck;
     private Spanish21Player player;
@@ -20,7 +21,7 @@ public class Spanish21 extends GamblingGame {
 
     public Spanish21(){this(new Spanish21Player());}
 
-    public void placeBet(Double amount) {
+    public void placeBet() {
 
     }
 
@@ -28,8 +29,9 @@ public class Spanish21 extends GamblingGame {
 
     }
 
-    public void validateBet() {
+    public boolean validateBet(double bet) {
 
+        return false;
     }
 
     public void takeTurn() {

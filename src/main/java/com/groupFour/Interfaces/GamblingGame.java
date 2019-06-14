@@ -12,7 +12,7 @@ abstract public class GamblingGame extends Game implements GamblingGameInterface
     }
 
     public void setCurrentBet(Double currentBet) {
-        if(currentBet>0&&currentBet<=this.maxBet&&currentBet>=this.minBet)this.currentBet = currentBet;
+        this.currentBet = currentBet;
     }
 
     public Double getMinBet() {
