@@ -4,7 +4,7 @@ import com.groupFour.Games.*;
 
 public class Mediator {
     static final Boolean ALLOW_CUSTOM_WALLET = true;
-    Console in = new Console(System.in,System.out);
+    Console console = new Console(System.in,System.out);
     Player player;
 
 
@@ -21,7 +21,7 @@ public class Mediator {
                 break;
             }
             case 2:{
-                GoFish game = new GoFish();
+                GoFish game = new GoFish(this.console);
                 game.setup();
                 break;
             }
@@ -44,18 +44,18 @@ public class Mediator {
     }
 
     public void initPlayer(Player player){
-        player.setName(in.getStringInput("Welcome to the best virtual casino ever!  And whom do we have the honor of fleecing today?"));
+        player.setName(console.getStringInput("Welcome to the best virtual casino ever!  And whom do we have the honor of fleecing today?"));
     }
 
     public void initPlayerWallet(Player player){
-        if(ALLOW_CUSTOM_WALLET) player.setWallet(in.getDoubleInput("And how much may we exchange for you, to get started?"));
+        if(ALLOW_CUSTOM_WALLET) player.setWallet(console.getDoubleInput("And how much may we exchange for you, to get started?"));
         else player.setWallet(player.DEFAULT_WALLET);
     }
 
     private void listGames(){}
 
     private void greetPlayer(){
-        in.println(String.format("Hello %s, you currently have $%1.2f.",player.getName(),player.getWallet()));
+        console.println(String.format("Hello %s, you currently have $%1.2f.",player.getName(),player.getWallet()));
     }
 
     private void mainMenu(){}
