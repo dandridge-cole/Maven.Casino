@@ -7,12 +7,34 @@ import java.util.List;
 
 class Mediator {
     private static final Boolean ALLOW_CUSTOM_WALLET = true;
-    private Console console = new Console(System.in,System.out);
-    private Player player = new Player();
-    private List<String> gameNames = new ArrayList<>();
-    private Boolean quit = false;
+    private Console console;
+    private Player player;
+    private List<String> gameNames;
+    private Boolean quit;
 
-    public void run(){
+    public Mediator(Console console) {
+        this.console = console;
+        this.player = new Player();
+        this.gameNames = new ArrayList<>();
+        this.quit = false;
+    }
+
+
+    public Mediator(Console console, Player player) {
+        this.console = console;
+        this.player = player;
+        this.gameNames = new ArrayList<>();
+        this.quit = false;
+    }
+
+    public Mediator() {
+        this.console = new Console(System.in,System.out);
+        this.player = new Player();
+        this.gameNames = new ArrayList<>();
+        this.quit = false;
+    }
+
+    void run(){
         initGamesList();
         while(!quit) {
             initPlayer(this.player);
@@ -21,12 +43,12 @@ class Mediator {
         }
     }
 
-    private void initPlayer(Player player){
+    void initPlayer(Player player){
         String name = console.getStringInput("Welcome to the best virtual casino ever!  And whom do we have the honor of fleecing today?");
         player.setName(name);
     }
 
-    private void initPlayerWallet(Player player){
+    void initPlayerWallet(Player player){
         if(ALLOW_CUSTOM_WALLET) {
             Double amount = console.getDoubleInput("And how much may we exchange for you, to get started?");
             Double confirmedAmt = confirmValidWalletIncrease(amount, player);
@@ -35,7 +57,7 @@ class Mediator {
         else player.setWallet(Player.DEFAULT_WALLET);
     }
 
-    private void initGamesList(){
+    void initGamesList(){
         gameNames.add(Blackjack.gameName);
         gameNames.add(Craps.gameName);
         gameNames.add(GoFish.gameName);
@@ -90,7 +112,7 @@ class Mediator {
         }
     }
 
-    private String buildGamesMenu() {
+    String buildGamesMenu() {
         StringBuilder builder = new StringBuilder("Please select a game:");
         for (int i = 0; i < gameNames.size(); i++) {
             builder.append(String.format("\n\t%d: %S", i, gameNames.get(i)));
@@ -163,13 +185,13 @@ class Mediator {
         //more time wasting could be added here;
         return kept;
     }
-    private void increaseBalance(){
+    void increaseBalance(){
         Double amount = (console.getDoubleInput("You currently have $%,1.2f. How much would you like to add?",player.getWallet()));
         Double confirmedAmt = confirmValidWalletIncrease(amount, player);
         player.setWallet(player.getWallet()+confirmedAmt);
     }
 
-    private Double confirmValidWalletIncrease(Double amount, Player player) {
+    Double confirmValidWalletIncrease(Double amount, Player player) {
         while(amount<=0||amount>999999999) {
             if (amount <= 0) {
                 amount = console.getDoubleInput("I'm sorry, but we do not exchange negative or zero balances. Please enter a valid amount.");
