@@ -7,8 +7,6 @@ import com.groupFour.Hand;
 import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.GoFishPlayer;
 
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class GoFish extends Game {
 
@@ -22,9 +20,7 @@ public class GoFish extends Game {
     private int countSetHouse = 0;  //counts # of sets house won
     private int countSetPlayer = 0; //counts # of sets player won
     int askedFor = 0;           //rank asked for in current turn
-    String lastAskHouse = "";     //rank last asked for by house
-
-    public GoFish(GoFishPlayer player){}
+    int lastAskHouse = 0;     //rank last asked for by house
 
     public GoFish(GoFishPlayer player, Console console){
         super();
@@ -36,17 +32,28 @@ public class GoFish extends Game {
         this(new GoFishPlayer(), console);
     }
 
+
+
+
     @Override
     public void takeTurn() {
+        viewHouseHand(); //won't need this after I know it works
+        askedFor = 0; //reset askedFor
+
         if (turn == 1) {
             console.println("Player's turn.");
-            viewHand();
+            viewHand();   //displayPlayerBins
         }
+        else if (turn == 0) {
+            //if player is 0 evaluateBins
+        }
+
+
+
         askForInput();
-        //if player not 0 displayPlayerBins
-        //if player is 0 evaluateBins
-        //askForPrompt
-        //checkIfBinsContain
+        checkIfBinsContain();  //checkIfBinsContain
+
+
         //turnOverMessage
         //loop
     }
@@ -73,30 +80,55 @@ public class GoFish extends Game {
         while (askedFor < 0 || askedFor > 13) { //scan
            askedFor = console.getIntegerInput("That's not a card number! Try again");
         }
-
         console.println("Thank you! Card asked for is: " + askedFor);
     }
 
 
-    public void checkIfBinsContain(String askedFor){
-        //check if opponents bins contain askedFor
-        // if YES: decreaseBins to 0
-        // if YES: call addToBins and increment askedFor bin by howMany
-        // if NO: display goFishMessage
-        //    AND drawCard
+    public void checkIfBinsContain(){
+        if (turn == 1){    // on Player's turn check HouseBins
+            if (house[askedFor] > 0) {
+                int howMany = house[askedFor];
+                console.println("I have " + howMany);
+                decreaseBins(askedFor, howMany);
+                addToBins(askedFor, howMany);
+            }
+            else {
+                goFish();
+            }
+        }
+        if (turn == 0){    // on House's turn check playerBins
+            if (player[askedFor] > 0) {
+                int howMany = player[askedFor];
+                console.println("I have " + howMany);
+                decreaseBins(askedFor, howMany);
+                addToBins(askedFor, howMany);
+                lastAskHouse = askedFor;
+            }
+            else {
+                goFish();
+            }
+        }
     }
 
     public void decreaseBins(int rank, int howMany){
-        //decrease askedFor bin with rank and howMany
+        //increment askedFor bin with rank and howMany
+        if (turn == 1){
+            house[rank] += howMany;
+        }
+        else if (turn == 0){
+            player[rank] += howMany;
+        }
+        console.println(rank + "s have been transferred.");
+        checkFor4();//automatically checkFor4
     }
 
     public void addToBins(int rank, int howMany){
         //increment askedFor bin with rank and howMany
         if (turn == 0){
-            house[rank] += 1;
+            house[rank] += howMany;
         }
         else if (turn == 1){
-            player[rank] += 1;
+            player[rank] += howMany;
         }
         checkFor4();//automatically checkFor4
     }
@@ -123,8 +155,10 @@ public class GoFish extends Game {
         }
     }
 
-    public void goFishMessage() {
-        //displays goFish Message
+    public void goFish() {
+        console.println("GO FISH!");  //displays goFish Message
+        drawCard();
+        turnOver();
     }
 
      public void drawCard() {
@@ -139,18 +173,28 @@ public class GoFish extends Game {
                 addToBins(rank, 1); // addToBins
                 if (turn > 0){
                     console.println("Your card: " + card.toString());
-
                 }
             }
 
      }
 
-     public void turnOverMessage() {
-        //display turnOverMessage
-         //adjust turn to other player
+     public void turnOver() {
+        if (turn == 0) {
+            console.println("House's turn is over.");
+            turn = 1;
+        } else if( turn == 1){
+            console.println("Player's turn is over.");
+            turn = 0;
+        }
+        takeTurn();
      }
 
      public void evaluateBins() {
+        int max = 0;
+         for (int i = 0; i < house.length; i++) {
+             if (house[i] > house[max] && i != lastAskHouse)
+         }
+         }
         //askFor = algorithm for house to determine what to ask for not lastAskHouse
      }
 
@@ -183,6 +227,17 @@ public class GoFish extends Game {
          }
      }
 
+     //won't need this after testing
+    public void viewHouseHand(){
+        System.out.print("House's hand: ");
+        if (turn == 1) {
+            console.println("ACE:" + house[1] + ", TWO:"  + house[2] + ", THREE:" + house[3] + ", FOUR:" + house[4] +
+                    ", FIVE:" + house[5] + ", SIX:" + house[6] +", SEVEN:" + house[7] + ", EIGHT:" + house[8] +
+                    ", NINE:" + house[9] + ", TEN:" + house[10] + ", JACK:" + house[11] + ", QUEEN:" + house[12] +
+                    ", KING:" + house[13]);
+            console.println("");
+        }
+    }
 
 
 }

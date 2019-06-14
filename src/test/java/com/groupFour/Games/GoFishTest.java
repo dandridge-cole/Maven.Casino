@@ -16,7 +16,7 @@ public class GoFishTest {
 
     @Test
     public void setupTest() {
-        Integer expected = 5;
+        Integer expected = 1;
         input = new ByteArrayInputStream(expected.toString().getBytes());
         console = new Console(input, System.out );
         GoFish gofish = new GoFish(console);
