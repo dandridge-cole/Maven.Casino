@@ -44,8 +44,6 @@ public class Blackjack extends GamblingGame {
         while (bet<getMinBet() || bet>getMaxBet()) {
             bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet());
         } setCurrentBet(bet);
-
-
     }
 
     public void dealCards(){
@@ -84,6 +82,8 @@ public class Blackjack extends GamblingGame {
 
     public void takeTurn() {
         if (validateBet(bjPlayer.getBalance())){
+            placeBet();
+            dealCards();
 
         }
 
@@ -107,6 +107,9 @@ public class Blackjack extends GamblingGame {
         setMaxBet(500.0);
         setMinBet(10.0);
 
+        while (!isDonePlaying()){
+            takeTurn();
+        }
 
     }
 
@@ -122,7 +125,5 @@ public class Blackjack extends GamblingGame {
                 if (containsAce && handValue<12)handValue+=10;
         }
         return handValue;
-
-
     }
 }
