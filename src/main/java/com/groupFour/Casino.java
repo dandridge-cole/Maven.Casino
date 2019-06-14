@@ -5,6 +5,7 @@ public class Casino {
 
     public static void main(String[] args) {
         // write your tests before you start fucking with this
-
+        Mediator med=new Mediator();
+        med.run();
     }
 }

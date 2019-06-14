@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 public class GoFish extends Game {
 
+    public static final String gameName = "Go Fish";
+    private Hand opponentHand;
     private GoFishPlayer goFishPlayer;
 
     private Deck deck;

@@ -7,7 +7,7 @@ import com.groupFour.Wraps.Spanish21Player;
 
 public class Spanish21 extends GamblingGame {
 
-    static final String gameName = "Spanish 21";
+    public static final String gameName = "Spanish 21";
     private Hand dealerHand;
     private Deck deck;
     private Spanish21Player player;
