@@ -6,7 +6,7 @@ import com.groupFour.Player;
 
 public class GreaterThanThree extends Game {
 
-    static final String gameName = "Greater than Three";
+    public static final String gameName = "Greater than Three";
     private Dice dice;
     private Player player;
 

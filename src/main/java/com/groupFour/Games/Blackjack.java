@@ -84,7 +84,7 @@ public class Blackjack extends GamblingGame {
 
     public void takeTurn() {
         if (validateBet(bjPlayer.getBalance())){
-            
+
         }
 
     }

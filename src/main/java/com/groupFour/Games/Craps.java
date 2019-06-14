@@ -6,7 +6,7 @@ import com.groupFour.Wraps.CrapsPlayer;
 
 public class Craps extends GamblingGame {
 
-    static final String gameName = "Craps";
+    public static final String gameName = "Craps";
     private Dice dice;
     private CrapsPlayer player;
 
