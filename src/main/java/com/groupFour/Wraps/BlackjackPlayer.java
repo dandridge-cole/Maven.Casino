@@ -29,10 +29,10 @@ public class BlackjackPlayer implements GamblingPlayer {
     }
 
     public void addToBalance(Double amount) {
-        //player.wallet += amount;
+        player.setWallet(player.getWallet()+amount);
     }
 
     public void subtractFromBalance(Double amount) {
-
+        player.setWallet(player.getWallet()-amount);
     }
 }
