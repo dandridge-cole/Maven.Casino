@@ -11,6 +11,7 @@ class Mediator {
     private Player player;
     private List<String> gameNames;
     private Boolean quit;
+    private List<String> bannedPlayers=new ArrayList<>();
 
     Mediator(Console console, Player player) {
         this.console = console;
@@ -28,8 +29,9 @@ class Mediator {
     void run(){
         initGamesList();
         while(!quit) {
+            initBannedPlayers();
             initPlayer(this.player);
-            initPlayerWallet(this.player);
+            if(!quit)initPlayerWallet(this.player);
             mainMenu();
         }
     }
@@ -49,6 +51,7 @@ class Mediator {
                 "*****                  *****\n" +
                 "\n\nWelcome to the best virtual casino ever!  And whom do we have the honor of fleecing today?";
         String name = console.getStringInput(welcomeMessage);
+        isBannedPlayer(name);
         player.setName(name);
     }
 
@@ -62,11 +65,22 @@ class Mediator {
     }
 
     void initGamesList(){ // could be private except for testing
-        gameNames.add(Blackjack.gameName);
-        gameNames.add(Craps.gameName);
-        gameNames.add(GoFish.gameName);
-        gameNames.add(GreaterThanThree.gameName);
-        gameNames.add(Spanish21.gameName);
+        this.gameNames.add(Blackjack.gameName);
+        this.gameNames.add(Craps.gameName);
+        this.gameNames.add(GoFish.gameName);
+        this.gameNames.add(GreaterThanThree.gameName);
+        this.gameNames.add(Spanish21.gameName);
+    }
+
+    void initBannedPlayers(){
+        this.bannedPlayers.add("anish patel");
+    }
+
+    void isBannedPlayer(String name){
+        if (this.bannedPlayers.contains(name.toLowerCase())){
+            this.quit=true;
+            this.console.println("I'm sorry "+ name +", but you are not welcome at the best virtual casino ever. Have a nice day.");
+        }
     }
 
     private Boolean keepTheCustomer() {
