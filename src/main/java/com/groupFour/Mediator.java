@@ -197,31 +197,31 @@ class Mediator {
             switch (selection.toLowerCase()) {
                 case "0":
                 case "blackjack": {
-                    Blackjack game = new Blackjack();
+                    Blackjack game = new Blackjack(this.console);
                     game.setup();
                     break;
                 }
                 case "1":
                 case "craps": {
-                    Craps game = new Craps();
+                    Craps game = new Craps(this.console);
                     game.setup();
                     break;
                 }
                 case "2":
                 case "go fish": {
-                    GoFish game = new GoFish();
+                    GoFish game = new GoFish(this.console);
                     game.setup();
                     break;
                 }
                 case "3":
                 case "greater than three": {
-                    GreaterThanThree game = new GreaterThanThree();
+                    GreaterThanThree game = new GreaterThanThree(this.console);
                     game.setup();
                     break;
                 }
                 case "4":
                 case "spanish 21": {
-                    Spanish21 game = new Spanish21();
+                    Spanish21 game = new Spanish21(this.console);
                     game.setup();
                     break;
                 }
