@@ -15,7 +15,7 @@ public class GoFish extends Game {
     private Deck deck;
     private int[] house = new int[14]; //0 will not be used, Ace=1 King=13
     private int[] player = new int[14];
-    private int turn = 0;  //0 is player, 1 is house
+    private int turn = 1;  //0 is house, 1 is player
     private int countSetHouse = 0;  //counts # of sets house won
     private int countSetPlayer = 0; //counts # of sets player won
     String askedFor = "";           //rank asked for in current turn
@@ -27,8 +27,8 @@ public class GoFish extends Game {
 
     @Override
     public void takeTurn() {
-        //if player not 1 displayPlayerBins
-        //if player is 1 evaluateBins
+        //if player not 0 displayPlayerBins
+        //if player is 0 evaluateBins
         //askForPrompt
         //checkIfBinsContain
         //turnOverMessage
@@ -40,13 +40,8 @@ public class GoFish extends Game {
         deck.shuffle();
         initializeBins(house); //initialize bins
         initializeBins(player);
+        deal();  //deal house and player hands
 
-        //deal house cards and update house bins
-        drawCard();
-
-
-
-        //deal player cards and update house bins
         //initiate beginning turn
     }
 
@@ -73,8 +68,15 @@ public class GoFish extends Game {
 
     }
 
-    public void addToBins(String rank, int howMany){
+    public void addToBins(int rank, int howMany){
         //increment askedFor bin with rank and howMany
+        if (turn == 0){
+            house[rank] += 1;
+        }
+        else if (turn == 1){
+            player[rank] += 1;
+ //           viewHand();  //can remove after programming
+        }
         //automatically checkFor4
     }
 
@@ -93,19 +95,19 @@ public class GoFish extends Game {
     }
 
      public void drawCard() {
+        int rank = 0;
          //if there are card draw card from drawStack
             if (deck.drawSize() == 0){
                 System.out.println("Draw pile is empty.");
             }
             else {
                 Card card = deck.getCardFromDraw();
-                System.out.println(card.getValue());
-
-                if (turn == 0){
+                rank = (card.getValue());
+                addToBins(rank, 1); // addToBins
+                if (turn > 0){
                     System.out.println("Your card: " + card.toString());
-                }
 
-                // addToBins
+                }
             }
 
      }
@@ -126,11 +128,29 @@ public class GoFish extends Game {
      }
 
      public void deal(){
-         for (int i = 0; i < 7 ; i++) {    // deal 7 cards
+         turn = 0;
+         for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
              drawCard();
+         }
+         turn = 1;
+         for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
+             drawCard();
+         }
+         if (turn == 1){
+             viewHand();
          }
      }
 
+     public void viewHand(){
+         System.out.print("Your hand: ");
+         if (turn == 1) {
+            System.out.print("ACE:" + player[1] + ", TWO:"  + player[2] + ", THREE:" + player[3] + ", FOUR:" + player[4] +
+                    ", FIVE:" + player[5] + ", SIX:" + player[6] +", SEVEN:" + player[7] + ", EIGHT:" + player[8] +
+                    ", NINE:" + player[9] + ", TEN:" + player[10] + ", JACK:" + player[11] + ", QUEEN:" + player[12] +
+                    ", KING:" + player[13]);
+             System.out.println();
+         }
+     }
 
 
 }
