@@ -20,6 +20,14 @@ public class Hand {
         }return builder.toString();
 
     }
+    public String handToStringAbrev(){
+        StringBuilder builder = new StringBuilder();
+        for (Card card: this.hand){
+            builder.append(card.toStringAbrev()).append("\n");
+        }return builder.toString();
+
+    }
+
 
     public ArrayList<Card> getCards(){
         return this.hand;

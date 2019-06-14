@@ -49,20 +49,20 @@ public class CrapsTest {
     }
 
 
-    @Test
-    public void placeBet() {
-        //Given
-        Double bet = 5.0;
-        Integer value = 6;
-        CrapsPlayer player = new CrapsPlayer();
-        Craps game = new Craps(player, dice, in, false,value, true);
-
-        //When
-        game.placeBet(bet);
-        Double actual = game.getCurrentBet();
-        //Assert
-        Assert.assertEquals(bet, actual);
-    }
+//    @Test
+//    public void placeBet() {
+//        //Given
+//        Double bet = 5.0;
+//        Integer value = 6;
+//        CrapsPlayer player = new CrapsPlayer();
+//        Craps game = new Craps(player, dice, in, false,value, true);
+//
+//        //When
+//        game.placeBet(bet);
+//        Double actual = game.getCurrentBet();
+//        //Assert
+//        Assert.assertEquals(bet, actual);
+//    }
 
     @Test
     public void resolve() {

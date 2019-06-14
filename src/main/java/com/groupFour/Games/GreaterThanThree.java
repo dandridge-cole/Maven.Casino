@@ -1,4 +1,5 @@
 package com.groupFour.Games;
+import com.groupFour.Console;
 
 import com.groupFour.Dice;
 import com.groupFour.Interfaces.Game;
@@ -6,16 +7,20 @@ import com.groupFour.Player;
 
 public class GreaterThanThree extends Game {
 
-    static final String gameName = "Greater than Three";
+    public static final String gameName = "Greater than Three";
     private Dice dice;
     private Player player;
+    private Console console;
 
-    public GreaterThanThree(Player player){
+    public GreaterThanThree(Player player, Console console){
         this.player = player;
         this.dice=new Dice(5);
+        this.console=console;
     }
 
-    public GreaterThanThree(){this(new Player());}
+    public GreaterThanThree(Console console){
+        this(new Player(),console);
+    }
 
     public void reRoll(){
 

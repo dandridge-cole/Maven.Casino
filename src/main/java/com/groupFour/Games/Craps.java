@@ -5,13 +5,14 @@ import com.groupFour.Interfaces.GamblingGame;
 import com.groupFour.Wraps.CrapsPlayer;
 
 public class Craps extends GamblingGame {
-    static final String gameName = "Craps";
+   public static final String gameName = "Craps";
     private CrapsPlayer player;
     private Dice dice;
     private Console display;
     private Boolean pointPhaseState;
     private Integer pointNum;
     private Boolean passLineBet;
+
     public Craps(CrapsPlayer player, Dice dice, Console display, Boolean pointPhaseState, Integer pointNum, Boolean passLineBet) {
         super(0.0, 5.0, 10000.0);
         this.player = player;
@@ -21,13 +22,25 @@ public class Craps extends GamblingGame {
         this.pointNum = pointNum;
         this.passLineBet = passLineBet;
     }
+
+    public Craps(CrapsPlayer player, Console console) {
+        super();
+        this.player = player;
+        this.dice = new Dice(2);
+        this.display=console;
+    }
+
+    public Craps(Console console) {
+        this(new CrapsPlayer(),console);
+    }
+
     public Boolean checkComeOutWin(Integer lastRollTotal, Boolean bet){
         return null;
     }
     public Boolean checkComeOutLoss(Integer lastRollTotal, Boolean bet){
         return null;
     }
-    public void placeBet(Double amount) {
+    public void placeBet() {
 
     }
     public void resolve() {
