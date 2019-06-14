@@ -12,13 +12,6 @@ class Mediator {
     private List<String> gameNames;
     private Boolean quit;
 
-    Mediator(Console console) {
-        this.console = console;
-        this.player = new Player();
-        this.gameNames = new ArrayList<>();
-        this.quit = false;
-    }
-
     Mediator(Console console, Player player) {
         this.console = console;
         this.player = player;
@@ -26,11 +19,10 @@ class Mediator {
         this.quit = false;
     }
 
+    Mediator(Console console) {this(console, new Player());}
+
     Mediator() {
-        this.console = new Console(System.in,System.out);
-        this.player = new Player();
-        this.gameNames = new ArrayList<>();
-        this.quit = false;
+        this(new Console(System.in,System.out));
     }
 
     void run(){
