@@ -6,13 +6,12 @@ import com.groupFour.Player;
 
 public class GreaterThanThree extends Game {
 
-    static final String gameName = "Greater than Three";
     private Dice dice;
     private Player player;
 
     public GreaterThanThree(Player player){
         this.player = player;
-        this.dice=new Dice(5);
+ //       this.dice=new Dice();
     }
 
     public GreaterThanThree(){this(new Player());}
