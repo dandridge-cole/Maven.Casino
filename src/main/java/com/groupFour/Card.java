@@ -22,7 +22,7 @@ public class Card {
 
         public String toString()
         {
-            return this.value; //will return , or ' instead of COMMA or APOSTROPHE
+            return this.value;
         }
     }
 
@@ -34,10 +34,7 @@ public class Card {
             this.value = value;
         }
 
-        public String toString()
-        {
-            return this.value; //will return , or ' instead of COMMA or APOSTROPHE
-        }
+        public String toString() { return this.value; }
     }
 
     private Suit suit;
