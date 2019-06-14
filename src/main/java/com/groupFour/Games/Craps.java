@@ -1,4 +1,5 @@
 package com.groupFour.Games;
+import com.groupFour.Console;
 
 import com.groupFour.Dice;
 import com.groupFour.Interfaces.GamblingGame;
@@ -6,16 +7,20 @@ import com.groupFour.Wraps.CrapsPlayer;
 
 public class Craps extends GamblingGame {
 
-    static final String gameName = "Craps";
+    public static final String gameName = "Craps";
     private Dice dice;
     private CrapsPlayer player;
+    private Console console;
 
-    public Craps(CrapsPlayer player) {
+    public Craps(CrapsPlayer player, Console console) {
         super();
         this.player = player;
         this.dice = new Dice(2);
+        this.console=console;
     }
-    public Craps() { this(new CrapsPlayer());}
+    public Craps(Console console) {
+        this(new CrapsPlayer(),console);
+    }
 
 
     public void placeBet(Double amount) {

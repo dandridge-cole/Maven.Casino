@@ -7,11 +7,11 @@ import com.groupFour.Hand;
 import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.GoFishPlayer;
 
-
 public class GoFish extends Game {
 
+    public static final String gameName = "Go Fish";
     private GoFishPlayer goFishPlayer;
-    Console console;
+    private Console console;
 
     private Deck deck;
     private int[] house = new int[14]; //0 will not be used, Ace=1 King=13
@@ -190,12 +190,12 @@ public class GoFish extends Game {
      }
 
      public void evaluateBins() {
-        int max = 0;
-         for (int i = 0; i < house.length; i++) {
-             if (house[i] > house[max] && i != lastAskHouse)
-         }
-         }
-        //askFor = algorithm for house to determine what to ask for not lastAskHouse
+//        int max = 0;
+//         for (int i = 0; i < house.length; i++) {
+//             if (house[i] > house[max] && i != lastAskHouse))
+//         }
+//         }
+//        //askFor = algorithm for house to determine what to ask for not lastAskHouse
      }
 
      public void initializeBins(int[] bin){
