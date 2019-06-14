@@ -6,6 +6,7 @@ import java.util.Random;
 public class Dice {
     final private Integer numberOfDice;
     private ArrayList<Integer> diceResult = new ArrayList<Integer>();
+    private Integer rollCount;
 
     public Dice(Integer numberOfDice) {
         this.numberOfDice = numberOfDice;

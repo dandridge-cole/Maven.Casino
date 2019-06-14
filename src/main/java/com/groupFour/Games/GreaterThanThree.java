@@ -24,7 +24,7 @@ public class GreaterThanThree extends Game {
 
     }
     public void setup() {
-        //intialize(roll) dice
+        //roll dice
         //check for matches in diceResult
         //rollCount++
     }
