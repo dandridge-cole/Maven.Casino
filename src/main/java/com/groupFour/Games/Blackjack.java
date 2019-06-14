@@ -2,18 +2,17 @@ package com.groupFour.Games;
 
 import com.groupFour.*;
 import com.groupFour.Interfaces.GamblingGame;
-import com.groupFour.Interfaces.GamblingPlayer;
+import com.groupFour.Player;
 import com.groupFour.Wraps.BlackjackPlayer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import static com.groupFour.Wraps.BlackjackPlayer.hand;
 
 public class Blackjack extends GamblingGame {
 
-    static final String gameName = "Blackjack";
+    public static final String gameName = "Blackjack";
     public static Hand dealerHand;
     private static Deck deck;
     private BlackjackPlayer bjPlayer;
@@ -21,11 +20,7 @@ public class Blackjack extends GamblingGame {
     private int handValue;
     private Console console;
 
-    public Blackjack(BlackjackPlayer player) {
-        this(new Console(System.in, System.out),player);
-    }
-
-    public Blackjack(Console console, BlackjackPlayer player) {
+    public Blackjack(BlackjackPlayer player, Console console) {
         super();
         this.console = console;
         this.bjPlayer = player;
@@ -34,8 +29,8 @@ public class Blackjack extends GamblingGame {
     }
 
 
-    public Blackjack() {
-        this(new BlackjackPlayer());
+    public Blackjack(Console console) {
+        this(new BlackjackPlayer(),console);
     }
 
     public void placeBet() {
