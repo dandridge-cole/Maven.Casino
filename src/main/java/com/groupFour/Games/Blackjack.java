@@ -3,7 +3,6 @@ package com.groupFour.Games;
 import com.groupFour.Deck;
 import com.groupFour.Hand;
 import com.groupFour.Interfaces.GamblingGame;
-import com.groupFour.Player;
 import com.groupFour.Wraps.BlackjackPlayer;
 
 public class Blackjack extends GamblingGame {
@@ -34,8 +33,8 @@ public class Blackjack extends GamblingGame {
 
     }
 
-    public void validateBet() {
-
+    public boolean validateBet(double bet) {
+        return true;
     }
 
     public void takeTurn() {

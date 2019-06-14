@@ -29,8 +29,8 @@ public class Spanish21 extends GamblingGame {
 
     }
 
-    public void validateBet() {
-
+    public boolean validateBet(double bet) {
+        return true;
     }
 
     public void takeTurn() {
