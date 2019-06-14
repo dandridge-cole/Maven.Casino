@@ -1,11 +1,15 @@
 package com.groupFour;
 
 import com.groupFour.Games.*;
+import com.groupFour.Wraps.BlackjackPlayer;
+import com.groupFour.Wraps.CrapsPlayer;
+import com.groupFour.Wraps.GoFishPlayer;
+import com.groupFour.Wraps.Spanish21Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class Mediator {
+class   Mediator {
     private static final Boolean ALLOW_CUSTOM_WALLET = true;
     private Console console;
     private Player player;
@@ -197,31 +201,31 @@ class Mediator {
             switch (selection.toLowerCase()) {
                 case "0":
                 case "blackjack": {
-                    Blackjack game = new Blackjack(this.console);
+                    Blackjack game = new Blackjack(new BlackjackPlayer(this.player),this.console);
                     game.setup();
                     break;
                 }
                 case "1":
                 case "craps": {
-                    Craps game = new Craps(this.console);
+                    Craps game = new Craps(new CrapsPlayer(this.player),this.console);
                     game.setup();
                     break;
                 }
                 case "2":
                 case "go fish": {
-                    GoFish game = new GoFish(this.console);
+                    GoFish game = new GoFish(new GoFishPlayer(this.player),this.console);
                     game.setup();
                     break;
                 }
                 case "3":
                 case "greater than three": {
-                    GreaterThanThree game = new GreaterThanThree(this.console);
+                    GreaterThanThree game = new GreaterThanThree(this.player,this.console);
                     game.setup();
                     break;
                 }
                 case "4":
                 case "spanish 21": {
-                    Spanish21 game = new Spanish21(this.console);
+                    Spanish21 game = new Spanish21(new Spanish21Player(this.player),this.console);
                     game.setup();
                     break;
                 }

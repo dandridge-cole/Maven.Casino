@@ -1,18 +1,18 @@
 package com.groupFour.Games;
 
 import com.groupFour.Card;
+import com.groupFour.Console;
 import com.groupFour.Deck;
 import com.groupFour.Hand;
 import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.GoFishPlayer;
-
-import java.util.Arrays;
 
 public class GoFish extends Game {
 
     public static final String gameName = "Go Fish";
     private Hand opponentHand;
     private GoFishPlayer goFishPlayer;
+    private Console console;
 
     private Deck deck;
     private int[] house = new int[14]; //0 will not be used, Ace=1 King=13
@@ -23,9 +23,14 @@ public class GoFish extends Game {
     String askedFor = "";           //rank asked for in current turn
     String lastAskHouse = "";     //rank last asked for by house
 
-    public GoFish(GoFishPlayer player){}
+    public GoFish(GoFishPlayer player, Console console){
+        this.goFishPlayer = player;
+        this.console=console;
+    }
 
-    public GoFish(){this(new GoFishPlayer());}
+    public GoFish(Console console){
+        this(new GoFishPlayer(),console);
+    }
 
     @Override
     public void takeTurn() {
