@@ -15,8 +15,6 @@ public class Player {
         this.wallet = wallet;
     }
 
-
-
     public Player(String name, Double wallet) {
         this.name = name;
         this.wallet = wallet;
