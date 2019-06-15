@@ -210,14 +210,14 @@ public class GoFish extends Game {
              drawCard();
          }
          turn = 1;
-         console.println("Dealing your hand:");
+         console.println("Dealing your playerHand:");
          for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
              drawCard();
          }
      }
 
      public void viewHand(){
-         System.out.print("Your hand: ");
+         System.out.print("Your playerHand: ");
          if (turn == 1) {
              console.println("ACE:" + player[1] + ", TWO:"  + player[2] + ", THREE:" + player[3] + ", FOUR:" + player[4] +
                     ", FIVE:" + player[5] + ", SIX:" + player[6] +", SEVEN:" + player[7] + ", EIGHT:" + player[8] +
@@ -229,7 +229,7 @@ public class GoFish extends Game {
 
      //won't need this after testing
     public void viewHouseHand(){
-        System.out.print("House's hand: ");
+        System.out.print("House's playerHand: ");
         if (turn == 1) {
             console.println("ACE:" + house[1] + ", TWO:"  + house[2] + ", THREE:" + house[3] + ", FOUR:" + house[4] +
                     ", FIVE:" + house[5] + ", SIX:" + house[6] +", SEVEN:" + house[7] + ", EIGHT:" + house[8] +
