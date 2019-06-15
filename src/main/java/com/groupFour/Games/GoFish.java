@@ -55,17 +55,33 @@ public class GoFish extends Game {
         askedFor = 0; //reset askedFor
 
         if (turn == 1) {    //if Player's turn display PlayerBins
-            console.println("Player's turn.");
+            console.println("Player's turn begins.");
             viewHand();
         }
         else if (turn == 0) {  //if Houses turn evaluate Bins
+            console.println("House's turn begins.");
             evaluateBins();
         }
 
+        //ask for card you want
         viewHouseHand(); //won't need this after I know it works
-
         askForInput();
-        checkIfBinsContain();  //checkIfBinsContain
+
+        //check if opponent has askedFor
+
+       int howMany = checkIfBinsContain();
+       if (howMany > 0){        // if true
+           decreaseBins(askedFor, howMany);   //remove the cards from opponent
+           addToBins(askedFor, howMany);      //give to player
+           checkFor4();                      //checkFor4
+
+           handEmpty();                      // check if player hand isEmpty
+
+       }
+       else {              //if false
+           goFish();       //gofish
+           turnOver();     //end turn
+       }
 
         //loop
     }
@@ -96,42 +112,44 @@ public class GoFish extends Game {
     }
 
 
-    public void checkIfBinsContain(){
+    public int checkIfBinsContain(){
+        int howMany = 0;
         if (turn == 1){    // on Player's turn check HouseBins
             if (house[askedFor] > 0) {
-                int howMany = house[askedFor];
+                howMany = house[askedFor];
                 console.println("I have " + howMany);
-                decreaseBins(askedFor, howMany);
-                addToBins(askedFor, howMany);
+//                decreaseBins(askedFor, howMany);
+//                addToBins(askedFor, howMany);
             }
-            else {
-                goFish();
-            }
+//            else {
+//                goFish();
+//            }
         }
-        if (turn == 0){    // on House's turn check playerBins
+        else if (turn == 0){    // on House's turn check playerBins
             if (player[askedFor] > 0) {
-                int howMany = player[askedFor];
+                howMany = player[askedFor];
                 console.println("I have " + howMany);
-                decreaseBins(askedFor, howMany);
-                addToBins(askedFor, howMany);
+//                decreaseBins(askedFor, howMany);
+//                addToBins(askedFor, howMany);
                 lastAskHouse = askedFor;
             }
-            else {
-                goFish();
-            }
+//            else {
+//                goFish();
+//            }
         }
+        return howMany;
     }
 
     public void decreaseBins(int rank, int howMany){
-        //increment askedFor bin with rank and howMany
+        //decrease askedFor bin with rank and howMany
         if (turn == 1){
-            house[rank] += howMany;
+            house[rank] -= howMany;
         }
         else if (turn == 0){
-            player[rank] += howMany;
+            player[rank] -= howMany;
         }
         console.println(rank + "s have been transferred.");
-        checkFor4();//automatically checkFor4
+    //    checkFor4();//automatically checkFor4
     }
 
     public void addToBins(int rank, int howMany){
@@ -142,7 +160,8 @@ public class GoFish extends Game {
         else if (turn == 1){
             player[rank] += howMany;
         }
-        checkFor4();//automatically checkFor4
+ //       console.println(rank + "s have been added.");
+ //       checkFor4();//automatically checkFor4
     }
 
     public void checkFor4(){      //check if any bins have 4
@@ -153,7 +172,7 @@ public class GoFish extends Game {
                     System.out.println("House has a set of 4 of :" + i);
                     countSetHouse ++;   //increase countSet+ AND display setWon Message
                     System.out.println("House completed sets = " + countSetHouse);
-                    handEmpty();
+ //                   handEmpty();
                 }
             }
         }else if (turn == 1){
@@ -163,44 +182,48 @@ public class GoFish extends Game {
                     console.println("Player has a set of 4 of:" + i);
                     countSetPlayer++;
                     console.println("Player completed sets = " + countSetPlayer);
-                    handEmpty();
+ //                   handEmpty();
                 }
             }
         }
     }
 
-    public void handEmpty(){
+    public void handEmpty() {
         boolean houseIsEmpty = false;
         boolean playerIsEmpty = false;
 
         if (turn == 0) {
-           for (int bin : house){
-               if (bin < 0){
-                   houseIsEmpty = true;
-                   refillHand();
-                   break;
-               }
-           }
-        }
-        if (turn == 1) {
             for (int bin : house) {
-                if (bin < 0) {
+                if (bin > 0) {      //hand is Not empty
+                    break;
+                } else {
+                    houseIsEmpty = true;
+                    refillHand();
+                }
+            }
+        } else if (turn == 1) {
+            for (int bin : house) {
+                if (bin > 0) {
+                    break;
+                } else {
                     playerIsEmpty = true;
                     refillHand();
-                    break;
                 }
             }
         }
     }
 
     public void refillHand(){
-       if (turn == 0){
+        if (deck.drawSize() == 0){
+            gameOver();
+        }
+        else if (turn == 0){
            console.println("House draws up to 5 new cards.");
            for (int i = 0; i < 5; i++) {
                drawCard();
            }
-       }
-        if (turn == 1){
+        }
+        else if (turn == 1){
             console.println("Player draws up to 5 new cards.");
             for (int i = 0; i < 5; i++) {
                 drawCard();
@@ -211,21 +234,24 @@ public class GoFish extends Game {
     public void goFish() {
         console.println("GO FISH!");  //displays goFish Message
         drawCard();
-        turnOver();
+//        turnOver();
     }
 
      public void drawCard() {
         int rank = 0;
-        if (deck.drawSize() == 0){   //if there are cards draw card from drawStack
+        if (deck.drawSize() == 0){   //if there are NO cards
             console.println("Draw pile is empty.");
         }
         else {
-            Card card = deck.getCardFromDraw();
+            Card card = deck.getCardFromDraw();  //if there are cards
             rank = (card.getValue());
-            addToBins(rank, 1); // addToBins
             if (turn > 0){
                 console.println("Your card: " + card.toString());
             }
+            else if (turn == 0){
+                console.println("House has drawn a card.");
+            }
+            addToBins(rank, 1); // addToBins
         }
      }
 
@@ -237,7 +263,7 @@ public class GoFish extends Game {
             console.println("Player's turn is over.");
             turn = 0;
         }
-        takeTurn();
+  //      takeTurn();
      }
 
      public void evaluateBins() {  //askFor = algorithm for house to determine what to ask for; not lastAskHouse
@@ -254,24 +280,42 @@ public class GoFish extends Game {
      }
 
      public void deal(){
-         turn = 0;
+         int rank = 0;
+         turn = 0;  //deal house
+         console.println("Dealing house");
          for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
-             drawCard();
+             Card card = deck.getCardFromDraw();  //if there are cards
+             rank = (card.getValue());
+             addToBins(rank, 1); // addToBins
          }
-         turn = 1;
-         console.println("Dealing your hand:");
+
+         turn = 1;  //deal player
+         console.println("Dealing Player's hand:");
          for (int i = 0; i < 7 ; i++) {    // deal 7 cards to player
-             drawCard();
+             Card card = deck.getCardFromDraw();  //if there are cards
+             rank = (card.getValue());
+             console.println("Your card: " + card.toString());
+             addToBins(rank, 1); // addToBins
          }
+         console.println("");
      }
 
      public int[] getplayerBin(){
         return player;
      }
 
+    public int[] getHouseBin(){
+        return house;
+    }
 
      public void gameOver(){
-         console.println("GAME IS OVER! House: " + countSetHouse + ", Player: " + countSetPlayer);
+    console.println("GAME IS OVER!");
+        if (countSetHouse > countSetPlayer){
+            console.println("House won with " + countSetHouse + " sets.");
+        }
+        else {
+            console.println("Player won with " + countSetPlayer + " sets.");
+        }
      }
 
      public void viewHand(){
