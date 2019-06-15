@@ -108,6 +108,14 @@ public class GoFishTest {
     }
 
     @Test
+    public void isHandEmptyTest() {
+        int[] player = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
+        GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
+        game.isHandEmpty();
+    }
+
+    @Test
     public void turnOverMessage() {
     }
 
