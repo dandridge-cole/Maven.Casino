@@ -1,6 +1,7 @@
 package com.groupFour.Games;
 import com.groupFour.*;
 import com.groupFour.Interfaces.GamblingGame;
+import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.BlackjackPlayer;
 import java.util.HashMap;
 import static com.groupFour.Wraps.BlackjackPlayer.playerHand;
@@ -52,7 +53,7 @@ public class Blackjack extends GamblingGame {
             }else{
                 setup();
             }
-        }isDonePlaying();
+        }
     }
 
     public boolean validateBet(double playerBalance) { //check if balance has enough to make minimum bet
@@ -75,7 +76,7 @@ public class Blackjack extends GamblingGame {
             resolve();
         }else{
             System.out.println("You don't have enough to make a bet!");
-            exit();
+            setup();
         }
     }
 
@@ -84,10 +85,13 @@ public class Blackjack extends GamblingGame {
         bet = 0.0;
         while (bet<getMinBet() || bet>getMaxBet()) {
             bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 1 to Exit ");
-            if (bet == 1){
-                setup();
+            if (bet > bjPlayer.getBalance()){
+                System.out.println("Not enough to place that bet.");
+                placeBet();
+            }else {
+                setCurrentBet(bet);
             }
-        } setCurrentBet(bet);
+        }
     }
 
     public void dealCards(){
@@ -122,12 +126,17 @@ public class Blackjack extends GamblingGame {
                 break;
 
             case 3: //double
-                dealCard(1, playerHand);
-                setCurrentBet(getCurrentBet()*2);
-                System.out.println("Player Doubled Down: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
-                checkForBust(playerHand);
-                dealerChoice();
-                break;
+                if (getCurrentBet()*2 > bjPlayer.getBalance()){
+                    System.out.println("Not enough to boule");
+                    resolve();
+                }else {
+                    dealCard(1, playerHand);
+                    setCurrentBet(getCurrentBet() * 2);
+                    System.out.println("Player Doubled Down: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
+                    checkForBust(playerHand);
+                    dealerChoice();
+                    break;
+                }
         }
     }
     public void dealerChoice(){

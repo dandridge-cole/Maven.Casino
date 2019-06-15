@@ -5,7 +5,6 @@ import com.groupFour.Wraps.Spanish21Player;
 import java.util.HashMap;
 
 import static com.groupFour.Wraps.BlackjackPlayer.playerHand;
-import static com.groupFour.Wraps.Spanish21Player.*;
 
 public class Spanish21 extends GamblingGame {
 
@@ -76,7 +75,7 @@ public class Spanish21 extends GamblingGame {
             resolve();
         }else{
             System.out.println("You don't have enough to make a bet!");
-            exit();
+            setup();
         }
     }
 
