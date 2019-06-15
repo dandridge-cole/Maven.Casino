@@ -89,6 +89,7 @@ public class GoFish extends Game {
 
     public void setup() {
         console.println("Welcome to a game of GO FISH");
+        gameRules();
         deck = new Deck();   //initialize and shuffle new deck
         deck.shuffle();
         initializeBins(house); //initialize bins
