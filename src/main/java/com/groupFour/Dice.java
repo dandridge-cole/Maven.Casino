@@ -1,12 +1,14 @@
 package com.groupFour;
 
+import com.sun.org.apache.xml.internal.utils.StringToIntTable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Dice {
-    final private Integer numberOfDice;
-    private ArrayList<Integer> diceResult = new ArrayList<Integer>();
-    private Integer rollCount = 0;
+    final protected Integer numberOfDice;
+    protected ArrayList<Integer> diceResult = new ArrayList<Integer>();
+    protected Integer rollCount = 0;
 
     public Dice(Integer numberOfDice) {
         this.numberOfDice = numberOfDice;
@@ -19,8 +21,8 @@ public class Dice {
         for (int i = 0; i < numberOfDice; i++) {
             Integer roll = random.nextInt(6)+ 1;
             diceResult.add(roll);
-            rollCount++;
         }
+        rollCount++;
         return diceResult;
     }
 
@@ -30,5 +32,21 @@ public class Dice {
     }
 
 
+
+    public Integer getRollCount() {
+        return rollCount;
+    }
+
+    public void setRollCount(Integer rollCount) {
+        this.rollCount = rollCount;
+    }
+
+    public String toString(){
+        StringBuilder build = new StringBuilder();
+        for (Integer die: diceResult) {
+            build.append(die).append(" ");
+        }
+    return build.toString();
+    }
 }
 
