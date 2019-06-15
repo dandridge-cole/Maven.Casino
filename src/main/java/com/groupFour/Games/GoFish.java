@@ -77,6 +77,7 @@ public class GoFish extends Game {
 
                 } else {              //if false
                     goFish();        //gofish
+                    checkFor4();
                     turnOver();      //set turn to next player
                     inplay = false;  //end current turn
                 }
@@ -126,32 +127,27 @@ public class GoFish extends Game {
         if (askedFor == 0) {
             gameIsOver = true;
         }
-        if (turn == 1){    // on Player's turn check HouseBins
-            if (house[askedFor] > 0) {
-                howMany = house[askedFor];
-                console.println("House has " + howMany);
-            }
+        else if (turn == 1){    // on Player's turn check HouseBins
+            howMany = house[askedFor];
+            console.println("House has " + howMany);
         }
         else if (turn == 0){    // on House's turn Player checks bins and responds
-            if (player[askedFor] > 0) {
-                howMany = player[askedFor];
-                console.println("You have " + howMany);
-            }
- //           viewHand();
-//            howMany = console.getIntegerInput("You have: " + howMany);
+            howMany = player[askedFor];
+            console.println("You have " + howMany);
         }
-        return howMany;
+
+       return howMany;
     }
 
     //decrease askedFor bin with rank and howMany
-    public void decreaseBins(int rank, int howMany){
+    public void decreaseBins(int askedFor, int howMany){
         if (turn == 1){
-            house[rank] -= howMany;
+            house[askedFor] -= howMany;
         }
         else if (turn == 0){
-            player[rank] -= howMany;
+            player[askedFor] -= howMany;
         }
-        console.println(rank + "s have been transferred.\n");
+        console.println(askedFor + "s have been transferred.\n");
     }
 
     //increment askedFor bin with rank and howMany
@@ -166,7 +162,7 @@ public class GoFish extends Game {
 
     public void checkFor4(){      //check if any bins have 4
         if (turn == 0) {
-            for (int i = 1; i < house.length; i++) {
+            for (int i = 0; i < house.length; i++) {
                 if (house[i] == 4) {
                     house[i] = 0;  //if YES: decrease Bin with 4 to 0
                     System.out.println("House won the set of : " + i +"s");
@@ -175,7 +171,7 @@ public class GoFish extends Game {
                 }
             }
         }else if (turn == 1){
-            for (int i = 1; i < player.length; i++) {
+            for (int i = 0; i < player.length; i++) {
                 if (player[i] == 4){
                     player[i] = 0;
                     console.println("You won the set of : " + i + "s");
@@ -217,21 +213,18 @@ public class GoFish extends Game {
     }
 
     public void refillHand(){
+        int drawNum = 5;
+
         if (deck.drawSize() == 0){
             gameIsOver = true;
             gameOverMessage();
         }
-        else if (turn == 0){
-           console.println("House draws up to 5 new cards.");
-           for (int i = 0; i < 5; i++) {
+        else {
+           console.println("Refill cards in hand.");
+           if (deck.drawSize() < 5)
+               drawNum = deck.drawSize();
+           for (int i = 0; i < drawNum; i++)
                drawCard();
-           }
-        }
-        else if (turn == 1){
-            console.println("Player draws up to 5 new cards.");
-            for (int i = 0; i < 5; i++) {
-                drawCard();
-            }
         }
     }
 
@@ -271,9 +264,9 @@ public class GoFish extends Game {
      }
 
      public void houseAsksFor() {  //askFor = algorithm for house to determine what to ask for; not lastAskHouse
-        askedFor = 0;
+        askedFor = 1;
         Random random = new Random();
-         askedFor =  (random.nextInt((12) + 1))+ 1;
+         askedFor =  (random.nextInt((12) + 1))+ askedFor %13;
      }
 
      public void initializeBins(int[] bin){
