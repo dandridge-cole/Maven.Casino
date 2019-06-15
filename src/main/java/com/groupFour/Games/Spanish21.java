@@ -1,4 +1,5 @@
 package com.groupFour.Games;
+import com.groupFour.Console;
 
 import com.groupFour.Deck;
 import com.groupFour.Hand;
@@ -11,15 +12,19 @@ public class Spanish21 extends GamblingGame {
     private Hand dealerHand;
     private Deck deck;
     private Spanish21Player player;
+    private Console console;
 
-    public Spanish21(Spanish21Player player){
+    public Spanish21(Spanish21Player player, Console console){
         super();
         this.player = player;
         this.dealerHand=new Hand();
         this.deck=new Deck();
+        this.console=console;
     }
 
-    public Spanish21(){this(new Spanish21Player());}
+    public Spanish21(Console console){
+        this(new Spanish21Player(),console);
+    }
 
     public void placeBet(Double amount) {
 
