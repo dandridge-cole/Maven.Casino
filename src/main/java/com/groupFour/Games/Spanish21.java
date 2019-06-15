@@ -26,7 +26,7 @@ public class Spanish21 extends GamblingGame {
         this(new Spanish21Player(),console);
     }
 
-    public void placeBet(Double amount) {
+    public void placeBet() {
 
     }
 
@@ -34,8 +34,9 @@ public class Spanish21 extends GamblingGame {
 
     }
 
-    public void validateBet() {
+    public boolean validateBet(double bet) {
 
+        return false;
     }
 
     public void takeTurn() {

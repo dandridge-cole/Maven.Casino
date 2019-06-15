@@ -1,7 +1,7 @@
 package com.groupFour.Interfaces;
 
 public interface GamblingGameInterface {
-    public void placeBet(Double amount);
+    public void placeBet();
     public void resolve();
-    public void validateBet();
+    public boolean validateBet(double currentBet);
 }

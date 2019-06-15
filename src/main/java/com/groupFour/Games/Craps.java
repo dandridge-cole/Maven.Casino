@@ -23,7 +23,7 @@ public class Craps extends GamblingGame {
     }
 
 
-    public void placeBet(Double amount) {
+    public void placeBet() {
 
     }
 
@@ -31,8 +31,8 @@ public class Craps extends GamblingGame {
 
     }
 
-    public void validateBet() {
-
+    public boolean validateBet(double bet) {
+        return false;
     }
 
     public void takeTurn() {
