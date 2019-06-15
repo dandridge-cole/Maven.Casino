@@ -83,11 +83,13 @@ public class Blackjack extends GamblingGame {
     public void placeBet() {
         Double bet;
         bet = 0.0;
-        while (bet<getMinBet() || bet>getMaxBet()) {
-            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 1 to Exit ");
-            if (bet > bjPlayer.getBalance()){
-                System.out.println("Not enough to place that bet.");
-                placeBet();
+        while (bet<getMinBet()-1 || bet>getMaxBet()) {
+            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 9 to Exit ");
+            if (bet == 9){
+                exit();
+            }else if (bet > bjPlayer.getBalance()) {
+                    System.out.println("Not enough to place that bet.");
+                    placeBet();
             }else {
                 setCurrentBet(bet);
             }
