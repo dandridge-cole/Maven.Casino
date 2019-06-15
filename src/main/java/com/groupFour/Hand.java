@@ -27,7 +27,6 @@ public class Hand {
         }return builder.toString();
 
     }
-
     public ArrayList<Card> getCards(){
         return this.hand;
     }

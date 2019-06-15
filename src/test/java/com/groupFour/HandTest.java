@@ -21,8 +21,6 @@ public class HandTest {
     boolean actual = hand.getCards().contains(card);
 
     Assert.assertTrue(actual);
-
-
     }
 
     @Test

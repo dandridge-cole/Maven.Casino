@@ -5,6 +5,7 @@ public class Player {
     static final Double DEFAULT_WALLET = 5000.0;
 
     private String name;
+    private Double wallet;
 
     public Double getWallet() {
         return this.wallet;
@@ -13,8 +14,6 @@ public class Player {
     public void setWallet(Double wallet) {
         this.wallet = wallet;
     }
-
-    private Double wallet;
 
     public Player(String name, Double wallet) {
         this.name = name;
