@@ -127,7 +127,7 @@ public class Blackjack extends GamblingGame {
 
             case 3: //double
                 if (getCurrentBet()*2 > bjPlayer.getBalance()){
-                    System.out.println("Not enough to boule");
+                    System.out.println("Not enough to Double");
                     resolve();
                 }else {
                     dealCard(1, playerHand);
