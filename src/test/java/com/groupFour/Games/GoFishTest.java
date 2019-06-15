@@ -120,6 +120,19 @@ public class GoFishTest {
     }
 
     @Test
-    public void evaluateBins() {
+    public void houseAsksFor() {
+        int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+        int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
+        GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
+        game.houseAsksFor();
     }
+
+    @Test
+    public void viewHandTest() {
+        int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+        int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
+        GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
+        game.viewHand();
+    }
+
 }
