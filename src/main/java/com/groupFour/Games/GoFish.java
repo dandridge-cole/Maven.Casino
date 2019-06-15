@@ -88,6 +88,7 @@ public class GoFish extends Game {
     }
 
     public void setup() {
+        console.println("Welcome to a game of GO FISH");
         deck = new Deck();   //initialize and shuffle new deck
         deck.shuffle();
         initializeBins(house); //initialize bins
@@ -103,12 +104,10 @@ public class GoFish extends Game {
 
     public void askForInput(){
         if (turn == 1) {
-            console.println("Enter a number ACE=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, " +
-                    "Jack=11, QUEEN=12, KING=13");
             viewHand();
             askedFor = console.getIntegerInput("House, do you have any: ");
 
-            while (askedFor <= 0 || askedFor > 13) { //scan
+            while (askedFor < 0 || askedFor > 13) { //scan
                 askedFor = console.getIntegerInput("That's not a card number! Try again");
             }
             console.println("Card asked for is: " + askedFor);
@@ -123,6 +122,9 @@ public class GoFish extends Game {
 
     public int checkIfBinsContain(){
         int howMany = 0;
+        if (askedFor == 0) {
+            gameIsOver = true;
+        }
         if (turn == 1){    // on Player's turn check HouseBins
             if (house[askedFor] > 0) {
                 howMany = house[askedFor];
@@ -166,7 +168,7 @@ public class GoFish extends Game {
             for (int i = 1; i < house.length; i++) {
                 if (house[i] == 4) {
                     house[i] = 0;  //if YES: decrease Bin with 4 to 0
-                    System.out.println("House has a set of 4 of :" + i);
+                    System.out.println("House won the set of : " + i +"s");
                     countSetHouse ++;   //increase countSet+ AND display setWon Message
                     System.out.println("House has won " + countSetHouse + " sets.");
                 }
@@ -175,7 +177,7 @@ public class GoFish extends Game {
             for (int i = 1; i < player.length; i++) {
                 if (player[i] == 4){
                     player[i] = 0;
-                    console.println("You have a set of 4 of:" + i);
+                    console.println("You won the set of : " + i + "s");
                     countSetPlayer++;
                     console.println("You have won " + countSetPlayer + " sets.");
                 }
@@ -194,7 +196,7 @@ public class GoFish extends Game {
                 }
             }
             if (playerHandIsEmpty){
-                console.println("Your hand is empty");
+                console.println("Your hand is empty.");
                 refillHand();
             }
         } else if (turn == 0) {
@@ -207,7 +209,7 @@ public class GoFish extends Game {
                 }
             }
             if (houseHandIsEmpty){
-                console.println("House's hand is empty");
+                console.println("House's hand is empty.");
                 refillHand();
             }
         }
@@ -311,11 +313,16 @@ public class GoFish extends Game {
      public void gameOverMessage(){
     console.println("GAME IS OVER!");
         if (countSetHouse > countSetPlayer){
-            console.println("House won with " + countSetHouse + " sets.");
+            console.println("HOUSE WIN with " + countSetHouse + " sets.");
         }
         else {
-            console.println("You won with " + countSetPlayer + " sets.");
+            console.println("YOU WIN with " + countSetPlayer + " sets.");
         }
+     }
+
+     public void gameRules(){
+        console.println("When entering cards ACE=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack=11, QUEEN=12, KING=13\n " +
+                "To Quit the game while in play enter 0 when prompted for a card. ");
      }
 
      public void viewHand(){
