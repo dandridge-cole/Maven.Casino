@@ -43,8 +43,16 @@ public class Blackjack extends GamblingGame {
 
     public void setup() {
         while (!isDonePlaying()){
-            takeTurn();
-        }exit();
+            int option = 0;
+            option = console.getIntegerInput("Enter 1 to Sit at the table or 2 to exit back to the lobby.");
+            if (option == 1){
+                takeTurn();
+            }else if (option == 2){
+                exit();
+            }else{
+                setup();
+            }
+        }isDonePlaying();
     }
 
     public boolean validateBet(double playerBalance) { //check if balance has enough to make minimum bet
@@ -76,6 +84,9 @@ public class Blackjack extends GamblingGame {
         bet = 0.0;
         while (bet<getMinBet() || bet>getMaxBet()) {
             bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 1 to Exit ");
+            if (bet == 1){
+                setup();
+            }
         } setCurrentBet(bet);
     }
 
