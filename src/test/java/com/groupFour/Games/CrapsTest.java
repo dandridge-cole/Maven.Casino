@@ -271,4 +271,17 @@ public class CrapsTest {
         //Assert
         Assert.assertArrayEquals(expectedArr, actualArr);
     }
+
+    @Test
+    public void constructorTest2() {
+        //Given
+        CrapsPlayer expectedCP = new CrapsPlayer(x);
+        Console expectedConsole = in;
+        Object[] expectedArr = {expectedCP,expectedConsole};
+        //When
+        Craps game = new Craps(expectedCP, expectedConsole);
+        Object[] actualArr = {game.getPlayer(), game.getDisplay()};
+        //Assert
+        Assert.assertArrayEquals(expectedArr, actualArr);
+    }
 }
