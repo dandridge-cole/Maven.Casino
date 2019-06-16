@@ -1,5 +1,4 @@
 package com.groupFour.Games;
-import com.groupFour.Console;
 
 import com.groupFour.Console;
 import com.groupFour.Dice;
@@ -57,6 +56,7 @@ public class GreaterThanThree extends Game {
         for (int i = 1; i < 7; i++) {
             if(theDice[i] > 2){
                 win =true;
+                console.println("You rolled " + dice.toString());
                 console.println("Congratulations you won with " + theDice[i] + " " + i +"'s!");
             }
         }
@@ -93,17 +93,19 @@ public class GreaterThanThree extends Game {
                 case "yes":
                 case "yes please":
                 case "yes thank you": {
-                    isDonePlaying = false;
+                    //isDonePlaying = false;
                     GreaterThanThree game = new GreaterThanThree(this.player,this.console);
                     game.setup();
                     break;
                 }
-                case "no":
-                case "n": {
+                case "n":
+                case "no": {
                     isDonePlaying = true;
                     break;
                 }
                 default:
+                    console.println("I think, sir and/or madam, that you are done with this game.  Your invalid input would seem to indicate so");
+                    console.println("Perhaps one of our other fine games would be more to your liking?");
                     break;
             }
         }

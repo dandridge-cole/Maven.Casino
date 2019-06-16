@@ -145,7 +145,7 @@ public class GreaterThanThreeTest {
     @Test
     public void whichDiceToKeepTest3(){
         GreaterThanThree game = new GreaterThanThree(console);
-        
+
     }
 
     @Test
@@ -153,6 +153,84 @@ public class GreaterThanThreeTest {
         GreaterThanThree game = new GreaterThanThree(console);
        Assert.assertNotNull(game.getPlayer().getName());
     }
+
+
+////    @Test
+////    public void rollCountTest(){
+////        Dice dice = new Dice(5);
+////        if(dice != null){rollCount++;}
+////
+////        Integer expected = 1;
+////        Integer actual = rollCount;
+////
+////        Assert.assertEquals(expected,actual);
+////    }
+//
+//    @Test
+//    public void compareDiceResultTest() {
+//        for (int i = 0; i < diceResult.size(); i++) {
+//            for (int j = i + 1; j < diceResult.size(); j++) {
+//                if (diceResult.get(i).equals(diceResult.get(j))) {
+//                    finalList.add(i);
+//                }
+//            }
+//        }
+//        Assert.assertTrue(finalList != diceResult);
+//    }
+//
+//    @Test
+//    public void reRollTest() {
+//        Dice reRollDice = new Dice(5 - finalList.size());
+//
+//        Integer expected = 2;
+//        Integer actual = reRollDice.rollDice().size();
+//
+//        Assert.assertEquals(expected,actual);
+//    }
+//
+//    @Test
+//    public void checkRollCountTest() {
+//        Dice dice = new Dice(5);
+//        if(dice != null){rollCount++;}
+//        Dice dice2 = new Dice(5);
+//        if(dice != null){rollCount++;}
+//        Dice dice3 = new Dice(5);
+//        if(dice != null){rollCount++;}
+//        Dice dice4 = new Dice(5);
+//        if(dice != null){rollCount++;}
+//
+//        Integer expected = 4;
+//        Integer actual = rollCount;
+//
+//        Assert.assertEquals(expected, actual);
+//    }
+//
+//    @Test
+//    public void takeTurnTest() {
+//        boolean result = diceResult.contains(finalList.get(1));
+//        Assert.assertTrue(result);
+//    }
+//
+//    @Test
+//    public void takeTurnTest2(){
+//        boolean result = diceResult.contains(finalList.get(1));
+//
+//        }
+//
+//
+//    @Test
+//    public void askIfRollAgainTest(){
+//
+//    }
+//
+//    @Test
+//    public void resolveTest() {
+//    }
+//
+//    @Test
+//    public void endConditionCheckerTest() {
+//
+//    }
 
 
 ////    @Test
