@@ -284,4 +284,15 @@ public class CrapsTest {
         //Assert
         Assert.assertArrayEquals(expectedArr, actualArr);
     }
+
+    @Test
+    public void constructorTestDefault() {
+        //Given
+        Console expectedConsole = in;
+        //When
+        Craps game = new Craps(expectedConsole);
+        Console actualConsole = game.getDisplay();
+        //Assert
+        Assert.assertEquals(expectedConsole, actualConsole);
+    }
 }
