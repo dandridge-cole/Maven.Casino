@@ -36,6 +36,10 @@ public class Craps extends GamblingGame {
 
     // Get/set currentBet(), minBet(), maxBet()
 
+    public void setup() {
+        setup(5.0, 1000.0);
+        while(!isDonePlaying()){}
+    }
     public void takeTurn() {
         // one cycle of the game
     }
@@ -72,11 +76,9 @@ public class Craps extends GamblingGame {
     public void setBet(Double desiredBet){
         setCurrentBet(desiredBet);
     }
-    public void setup() {
-        setup(5.0, 1000.0);
-    }
     public void setup(Double min, Double max){
-        
+        setMinBet(min);
+        setMaxBet(max);
     }
     public Dice getDice() {
         return dice;
