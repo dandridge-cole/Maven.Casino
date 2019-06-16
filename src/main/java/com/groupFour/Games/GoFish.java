@@ -3,7 +3,7 @@ package com.groupFour.Games;
 import com.groupFour.Card;
 import com.groupFour.Console;
 import com.groupFour.Deck;
-import com.groupFour.Hand;
+import java.util.Random;
 import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.GoFishPlayer;
 
@@ -20,7 +20,21 @@ public class GoFish extends Game {
     private int countSetHouse = 0;  //counts # of sets house won
     private int countSetPlayer = 0; //counts # of sets player won
     int askedFor = 0;           //rank asked for in current turn
-    int lastAskHouse = 0;     //rank last asked for by house
+    boolean gameIsOver = false;  //test for game in play
+
+
+//this constructor used for testing
+    public GoFish(Console console, Deck deck, int[] house, int[] player){
+        this.console = console;
+        this.deck = deck;
+        this.house = house;
+        this.player = player;
+        this.turn = 1;
+        this.countSetHouse = 0;
+        this.countSetPlayer = 0;
+        this.askedFor = 0;
+    }
+
 
     public GoFish(GoFishPlayer player, Console console){
         super();
@@ -32,33 +46,51 @@ public class GoFish extends Game {
         this(new GoFishPlayer(), console);
     }
 
-
-
+    //**************************************************************************************
 
     @Override
     public void takeTurn() {
-        viewHouseHand(); //won't need this after I know it works
+
+        boolean inplay = true;
         askedFor = 0; //reset askedFor
 
-        if (turn == 1) {
-            console.println("Player's turn.");
-            viewHand();   //displayPlayerBins
-        }
-        else if (turn == 0) {
-            //if player is 0 evaluateBins
-        }
+        while (gameIsOver == false) {
+            if (turn == 1) {    //if Player's turn display PlayerBins
+                console.println("Your turn begins.");
+                inplay = true;
+            } else if (turn == 0) {  //if Houses turn evaluate Bins
+                console.println("House's turn begins.");
+                inplay = true;
+
+            }
+            while (inplay) {
+                 askForInput();
+
+                //check if opponent has askedFor
+                int howMany = checkIfBinsContain();
+                if (howMany > 0) {        // if true
+                    decreaseBins(askedFor, howMany);   //remove the cards from opponent
+                    addToBins(askedFor, howMany);      //give to player
+                    checkFor4();                      //checkFor4
+                    isHandEmpty();       // check if hand isEmpty
 
 
+                } else {              //if false
+                    goFish();        //gofish
+                    checkFor4();
+                    turnOver();      //set turn to next player
+                    inplay = false;  //end current turn
+                }
+            }   // loop to continue players turn
 
-        askForInput();
-        checkIfBinsContain();  //checkIfBinsContain
+      }  //END Game
 
 
-        //turnOverMessage
-        //loop
     }
 
     public void setup() {
+        console.println("Welcome to a game of GO FISH");
+        gameRules();
         deck = new Deck();   //initialize and shuffle new deck
         deck.shuffle();
         initializeBins(house); //initialize bins
@@ -73,109 +105,150 @@ public class GoFish extends Game {
     }
 
     public void askForInput(){
-        askedFor = console.getIntegerInput("Enter a number ACE=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, " +
-                "Jack=11, QUEEN=12, KING=13 \n " +
-                "Do you have any : ");
+        if (turn == 1) {
+            viewHand();
+            askedFor = console.getIntegerInput("House, do you have any: ");
 
-        while (askedFor < 0 || askedFor > 13) { //scan
-           askedFor = console.getIntegerInput("That's not a card number! Try again");
+            while (askedFor < 0 || askedFor > 13) { //scan
+                askedFor = console.getIntegerInput("That's not a card number! Try again");
+            }
+            console.println("Card asked for is: " + askedFor);
         }
-        console.println("Thank you! Card asked for is: " + askedFor);
-    }
 
-
-    public void checkIfBinsContain(){
-        if (turn == 1){    // on Player's turn check HouseBins
-            if (house[askedFor] > 0) {
-                int howMany = house[askedFor];
-                console.println("I have " + howMany);
-                decreaseBins(askedFor, howMany);
-                addToBins(askedFor, howMany);
-            }
-            else {
-                goFish();
-            }
-        }
-        if (turn == 0){    // on House's turn check playerBins
-            if (player[askedFor] > 0) {
-                int howMany = player[askedFor];
-                console.println("I have " + howMany);
-                decreaseBins(askedFor, howMany);
-                addToBins(askedFor, howMany);
-                lastAskHouse = askedFor;
-            }
-            else {
-                goFish();
-            }
+        if (turn == 0){
+            houseAsksFor();  //set askFor
+            console.println("House asks: Do you have any : " + askedFor);
         }
     }
 
-    public void decreaseBins(int rank, int howMany){
-        //increment askedFor bin with rank and howMany
+
+    public int checkIfBinsContain(){
+        int howMany = 0;
+        if (askedFor == 0) {
+            gameIsOver = true;
+        }
+        else if (turn == 1){    // on Player's turn check HouseBins
+            howMany = house[askedFor];
+            console.println("House has " + howMany);
+        }
+        else if (turn == 0){    // on House's turn Player checks bins and responds
+            howMany = player[askedFor];
+            console.println("You have " + howMany);
+        }
+
+       return howMany;
+    }
+
+    //decrease askedFor bin with rank and howMany
+    public void decreaseBins(int askedFor, int howMany){
         if (turn == 1){
-            house[rank] += howMany;
+            house[askedFor] -= howMany;
         }
         else if (turn == 0){
-            player[rank] += howMany;
+            player[askedFor] -= howMany;
         }
-        console.println(rank + "s have been transferred.");
-        checkFor4();//automatically checkFor4
+        console.println(askedFor + "s have been transferred.\n");
     }
 
+    //increment askedFor bin with rank and howMany
     public void addToBins(int rank, int howMany){
-        //increment askedFor bin with rank and howMany
         if (turn == 0){
             house[rank] += howMany;
         }
         else if (turn == 1){
             player[rank] += howMany;
         }
-        checkFor4();//automatically checkFor4
     }
 
     public void checkFor4(){      //check if any bins have 4
         if (turn == 0) {
-            for (int i = 1; i < house.length; i++) {
+            for (int i = 0; i < house.length; i++) {
                 if (house[i] == 4) {
                     house[i] = 0;  //if YES: decrease Bin with 4 to 0
-                    System.out.println("House has a set of 4 of :" + i);
+                    System.out.println("House won the set of : " + i +"s");
                     countSetHouse ++;   //increase countSet+ AND display setWon Message
-                    System.out.println("House completed sets = " + countSetHouse);
+                    System.out.println("House has won " + countSetHouse + " sets.");
                 }
             }
         }else if (turn == 1){
-                for (int i = 1; i < player.length; i++) {
-                    if (player[i] == 4){
-                        player[i] = 0;
-                        console.println("Player has a set of 4 of:" + i);
-                        countSetPlayer++;
-                        console.println("Player completed sets = " + countSetPlayer);
-                    }
+            for (int i = 0; i < player.length; i++) {
+                if (player[i] == 4){
+                    player[i] = 0;
+                    console.println("You won the set of : " + i + "s");
+                    countSetPlayer++;
+                    console.println("You have won " + countSetPlayer + " sets.");
                 }
+            }
+        }
+    }
+
+    public void isHandEmpty() {
+        if (turn == 1) {
+            boolean playerHandIsEmpty = true;
+
+            for (int i = 0; i < player.length; i++) {
+                if (player[i] > 0) {
+                    playerHandIsEmpty = false;
+                    break;
+                }
+            }
+            if (playerHandIsEmpty){
+                console.println("Your hand is empty.");
+                refillHand();
+            }
+        } else if (turn == 0) {
+            boolean houseHandIsEmpty = true;
+
+            for (int i = 0; i < house.length; i++) {
+                if (house[i] > 0) {
+                    houseHandIsEmpty = false;
+                    break;
+                }
+            }
+            if (houseHandIsEmpty){
+                console.println("House's hand is empty.");
+                refillHand();
+            }
+        }
+    }
+
+    public void refillHand(){
+        int drawNum = 5;
+
+        if (deck.drawSize() == 0){
+            gameIsOver = true;
+            gameOverMessage();
+        }
+        else {
+           console.println("Refill cards in hand.");
+           if (deck.drawSize() < 5)
+               drawNum = deck.drawSize();
+           for (int i = 0; i < drawNum; i++)
+               drawCard();
         }
     }
 
     public void goFish() {
         console.println("GO FISH!");  //displays goFish Message
         drawCard();
-        turnOver();
     }
 
      public void drawCard() {
         int rank = 0;
-         //if there are card draw card from drawStack
-            if (deck.drawSize() == 0){
-                console.println("Draw pile is empty.");
+        if (deck.drawSize() == 0){   //if there are NO cards
+            console.println("Draw pile is empty.");
+        }
+        else {
+            Card card = deck.getCardFromDraw();  //if there are cards
+            rank = (card.getValue());
+            if (turn > 0){
+                console.println("Your card: " + card.toString());
             }
-            else {
-                Card card = deck.getCardFromDraw();
-                rank = (card.getValue());
-                addToBins(rank, 1); // addToBins
-                if (turn > 0){
-                    console.println("Your card: " + card.toString());
-                }
+            else if (turn == 0){
+                console.println("House has drawn a card.");
             }
-
+            addToBins(rank, 1); // addToBins
+        }
      }
 
      public void turnOver() {
@@ -183,19 +256,17 @@ public class GoFish extends Game {
             console.println("House's turn is over.");
             turn = 1;
         } else if( turn == 1){
-            console.println("Player's turn is over.");
+            console.println("Your turn is over.");
             turn = 0;
         }
-        takeTurn();
+        console.println("");
+        console.println("");
      }
 
-     public void evaluateBins() {
-//        int max = 0;
-//         for (int i = 0; i < house.length; i++) {
-//             if (house[i] > house[max] && i != lastAskHouse))
-//         }
-//         }
-//        //askFor = algorithm for house to determine what to ask for not lastAskHouse
+     public void houseAsksFor() {  //askFor = algorithm for house to determine what to ask for; not lastAskHouse
+        askedFor = 1;
+        Random random = new Random();
+         askedFor =  (random.nextInt((12) + 1))+ askedFor %13;
      }
 
      public void initializeBins(int[] bin){
@@ -205,39 +276,67 @@ public class GoFish extends Game {
      }
 
      public void deal(){
-         turn = 0;
+         int rank = 0;
+         turn = 0;  //deal house
+         console.println("Dealing house");
          for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
-             drawCard();
+             Card card = deck.getCardFromDraw();  //if there are cards
+             rank = (card.getValue());
+             addToBins(rank, 1); // addToBins
          }
-         turn = 1;
-         console.println("Dealing your playerHand:");
-         for (int i = 0; i < 7 ; i++) {    // deal 7 cards to house
-             drawCard();
+
+         turn = 1;  //deal player
+         console.println("Dealing Player's hand:");
+         for (int i = 0; i < 7 ; i++) {    // deal 7 cards to player
+             Card card = deck.getCardFromDraw();  //if there are cards
+             rank = (card.getValue());
+             console.println("Your card: " + card.toString());
+             addToBins(rank, 1); // addToBins
          }
+         console.println("");
+     }
+
+     public int[] getplayerBin(){
+        return player;
+     }
+
+    public int[] getHouseBin(){
+        return house;
+    }
+
+     public void gameOverMessage(){
+    console.println("GAME IS OVER!");
+        if (countSetHouse > countSetPlayer){
+            console.println("HOUSE WIN with " + countSetHouse + " sets.");
+        }
+        else {
+            console.println("YOU WIN with " + countSetPlayer + " sets.");
+        }
+     }
+
+     public void gameRules(){
+        console.println("When entering cards ACE=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack=11, QUEEN=12, KING=13\n " +
+                "To Quit the game while in play enter 0 when prompted for a card. ");
      }
 
      public void viewHand(){
-         System.out.print("Your playerHand: ");
-         if (turn == 1) {
-             console.println("ACE:" + player[1] + ", TWO:"  + player[2] + ", THREE:" + player[3] + ", FOUR:" + player[4] +
+             console.println("Your hand:  ACE:" + player[1] + ", TWO:"  + player[2] + ", THREE:" + player[3] + ", FOUR:" + player[4] +
                     ", FIVE:" + player[5] + ", SIX:" + player[6] +", SEVEN:" + player[7] + ", EIGHT:" + player[8] +
                     ", NINE:" + player[9] + ", TEN:" + player[10] + ", JACK:" + player[11] + ", QUEEN:" + player[12] +
                     ", KING:" + player[13]);
              console.println("");
-         }
      }
 
      //won't need this after testing
     public void viewHouseHand(){
-        System.out.print("House's playerHand: ");
-        if (turn == 1) {
-            console.println("ACE:" + house[1] + ", TWO:"  + house[2] + ", THREE:" + house[3] + ", FOUR:" + house[4] +
+        console.println("House's hand: ");
+            console.println("Houses hand: \n ACE:" + house[1] + ", TWO:"  + house[2] + ", THREE:" + house[3] + ", FOUR:" + house[4] +
                     ", FIVE:" + house[5] + ", SIX:" + house[6] +", SEVEN:" + house[7] + ", EIGHT:" + house[8] +
                     ", NINE:" + house[9] + ", TEN:" + house[10] + ", JACK:" + house[11] + ", QUEEN:" + house[12] +
                     ", KING:" + house[13]);
             console.println("");
         }
-    }
+
 
 
 }

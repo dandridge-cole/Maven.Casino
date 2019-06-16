@@ -14,7 +14,6 @@ public class Blackjack extends GamblingGame {
     private HashMap<String, Integer> blackJackValue = new HashMap<>();
     private int handValue;
     private Console console;
-    protected int gameCount;
 
     public Blackjack(BlackjackPlayer player, Console console) {
         super();
@@ -52,7 +51,7 @@ public class Blackjack extends GamblingGame {
             }else{
                 setup();
             }
-        }isDonePlaying();
+        }exit();
     }
 
     public boolean validateBet(double playerBalance) { //check if balance has enough to make minimum bet
@@ -63,9 +62,7 @@ public class Blackjack extends GamblingGame {
     public void takeTurn() {
         setMaxBet(500.0);
         setMinBet(10.0);
-        setCurrentBet(0.0);
         if (validateBet(bjPlayer.getBalance())){
-            System.out.println(gameCount);
             playerHand = new Hand();
             dealerHand = new Hand();
             deck = new Deck();
@@ -75,19 +72,25 @@ public class Blackjack extends GamblingGame {
             resolve();
         }else{
             System.out.println("You don't have enough to make a bet!");
-            exit();
+            setup();
         }
     }
 
     public void placeBet() {
         Double bet;
         bet = 0.0;
-        while (bet<getMinBet() || bet>getMaxBet()) {
-            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 1 to Exit ");
-            if (bet == 1){
+        while (bet<getMinBet()-1 || bet>getMaxBet()) {
+            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: ");
+            if (bet == 999.0){
+                exit();
                 setup();
+            }else if (bet > bjPlayer.getBalance()) {
+                    System.out.println("Not enough to place that bet.");
+                    placeBet();
+            }else {
+                setCurrentBet(bet);
             }
-        } setCurrentBet(bet);
+        }
     }
 
     public void dealCards(){
@@ -113,7 +116,13 @@ public class Blackjack extends GamblingGame {
             case 1: //hit
                 dealCard(1, playerHand);
                 System.out.println("Player draws: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
-                checkForBust(playerHand);
+                if(checkForBust(playerHand)){
+                    printHands();
+                    System.out.println("BUST!");
+                    bjPlayer.subtractFromBalance(getCurrentBet());
+                    System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
+                    takeTurn();
+                }
                 resolve();
                 break;
 
@@ -122,12 +131,25 @@ public class Blackjack extends GamblingGame {
                 break;
 
             case 3: //double
-                dealCard(1, playerHand);
-                setCurrentBet(getCurrentBet()*2);
-                System.out.println("Player Doubled Down: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
-                checkForBust(playerHand);
-                dealerChoice();
-                break;
+                if (getCurrentBet()*2 > bjPlayer.getBalance()){
+                    System.out.println("Not enough to Double");
+                    resolve();
+                }else {
+                    dealCard(1, playerHand);
+                    setCurrentBet(getCurrentBet() * 2);
+                    System.out.println("Player Doubled Down: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
+                    if(checkForBust(playerHand)){
+                        printHands();
+                        System.out.println("BUST!");
+                        bjPlayer.subtractFromBalance(getCurrentBet());
+                        System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
+                        takeTurn();
+                    }
+                    dealerChoice();
+                    break;
+                }
+            default: System.out.println("Invalid Selection");
+                resolve();
         }
     }
     public void dealerChoice(){
@@ -161,6 +183,7 @@ public class Blackjack extends GamblingGame {
             if (handValue == 21) {
                 System.out.println("Congrats! You won: " + getCurrentBet());
                 bjPlayer.addToBalance(getCurrentBet());
+                setup();
             } else {
                 int option = 0;
                 option = console.getIntegerInput("Enter 1 to Hit\n" + "Enter 2 to Stay \n" + "Enter 3 to Double");
@@ -184,7 +207,12 @@ public class Blackjack extends GamblingGame {
     public void checkForDealerBj(){
         if (calculateHandValue(dealerHand) == 21){
             System.out.println(dealerHand.handToStringAbrev());
-            System.out.println("Dealer got BlackJack! You Lose!\n" + "Remaining balance: " + bjPlayer.getBalance());
+            System.out.println("Dealer got BlackJack! You Lose!\n" + "Remaining balance: " + bjPlayer.getBalance() +
+                    "\n" +
+                    " \\~~~/\n" +
+                    "  \\_/\n" +
+                    "   Y\n" +
+                    "  _|_\n Have a free drink on the house!" );
             bjPlayer.subtractFromBalance(getCurrentBet());
             takeTurn();
         }
@@ -199,18 +227,14 @@ public class Blackjack extends GamblingGame {
         }
     }
 
-    public void checkForBust(Hand hand){
+    public boolean checkForBust(Hand hand){
         if (calculateHandValue(hand)>21){
-            printHands();
-            System.out.println("BUST!");
-            bjPlayer.subtractFromBalance(getCurrentBet());
-            System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
-            takeTurn();
-        }
+            return true;
+        } else {return false;}
     }
 
     public void printHands(){
-        System.out.println("Player playerHand: \n" + playerHand.handToStringAbrev());
-        System.out.println("Dealer playerHand: \n" + dealerHand.handToStringAbrev());
+        System.out.println("Player Hand: \n" + playerHand.handToStringAbrev());
+        System.out.println("Dealer Hand: \n" + dealerHand.handToStringAbrev());
     }
 }
