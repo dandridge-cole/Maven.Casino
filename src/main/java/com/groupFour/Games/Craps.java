@@ -76,7 +76,7 @@ public class Craps extends GamblingGame {
         setup(5.0, 1000.0);
     }
     public void setup(Double min, Double max){
-        // Set min/max bet
+        
     }
     public Dice getDice() {
         return dice;

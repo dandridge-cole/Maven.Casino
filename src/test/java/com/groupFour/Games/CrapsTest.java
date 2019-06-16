@@ -81,25 +81,6 @@ public class CrapsTest {
         }
     }
 
-
-    @Test
-    public void placeBet() {
-        //Given
-        CrapsPlayer player = new CrapsPlayer();
-        Craps game = new Craps(player, dice, in, false,0, true);
-        Double unexpected = game.getCurrentBet();
-
-        //When
-        game.placeBet();
-        Double actual = game.getCurrentBet();
-        //Assert
-        Assert.assertNotEquals(unexpected, actual);
-    }
-
-    @Test
-    public void resolve() {
-    }
-
     @Test
     public void validateBet() {
         //Given
