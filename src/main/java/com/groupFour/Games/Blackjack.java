@@ -48,10 +48,8 @@ public class Blackjack extends GamblingGame {
                 takeTurn();
             }else if (option == 2){
                 exit();
-            }else{
-                setup();
             }
-        }exit();
+        }
     }
 
     public boolean validateBet(double playerBalance) { //check if balance has enough to make minimum bet
@@ -80,11 +78,8 @@ public class Blackjack extends GamblingGame {
         Double bet;
         bet = 0.0;
         while (bet<getMinBet()-1 || bet>getMaxBet()) {
-            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: ");
-            if (bet == 999.0){
-                exit();
-                setup();
-            }else if (bet > bjPlayer.getBalance()) {
+            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet());
+            if (bet > bjPlayer.getBalance()) {
                     System.out.println("Not enough to place that bet.");
                     placeBet();
             }else {
@@ -121,7 +116,7 @@ public class Blackjack extends GamblingGame {
                     System.out.println("BUST!");
                     bjPlayer.subtractFromBalance(getCurrentBet());
                     System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
-                    takeTurn();
+                    setup();
                 }
                 resolve();
                 break;
@@ -143,7 +138,7 @@ public class Blackjack extends GamblingGame {
                         System.out.println("BUST!");
                         bjPlayer.subtractFromBalance(getCurrentBet());
                         System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
-                        takeTurn();
+                        setup();
                     }
                     dealerChoice();
                     break;
@@ -161,21 +156,21 @@ public class Blackjack extends GamblingGame {
                 System.out.println("DEALER BUSTS!");
                 bjPlayer.addToBalance(getCurrentBet());
                 System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
-                takeTurn();
+                setup();
         } else if (calculateHandValue(dealerHand) > calculateHandValue(playerHand)){
                 printHands();
                 bjPlayer.subtractFromBalance(getCurrentBet());
                 System.out.println("Dealer Wins \n Remaining Balance: $" + bjPlayer.getBalance());
-                takeTurn();
+                setup();
         } else if (calculateHandValue(dealerHand) < calculateHandValue(playerHand)){
                 printHands();
                 bjPlayer.addToBalance(getCurrentBet());
                 System.out.println("You win!\n" + "Remaining balance: " + bjPlayer.getBalance());
-                takeTurn();
+                setup();
         } else {
                 printHands();
                 System.out.println("PUSH!\n" + "Remaining balance: " + bjPlayer.getBalance());
-                takeTurn();
+                setup();
             }
     }
 
@@ -214,7 +209,7 @@ public class Blackjack extends GamblingGame {
                     "   Y\n" +
                     "  _|_\n Have a free drink on the house!" );
             bjPlayer.subtractFromBalance(getCurrentBet());
-            takeTurn();
+            setup();
         }
     }
 
@@ -223,7 +218,7 @@ public class Blackjack extends GamblingGame {
             System.out.println(playerHand.handToStringAbrev());
             bjPlayer.addToBalance(getCurrentBet());
             System.out.println("You got BlackJack!\n" + "Remaining balance: " + bjPlayer.getBalance());
-            takeTurn();
+            setup();
         }
     }
 
