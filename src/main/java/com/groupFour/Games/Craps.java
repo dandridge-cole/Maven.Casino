@@ -65,6 +65,9 @@ public class Craps extends GamblingGame {
         for(Integer n : dice.getDiceResult()) total += n;
         return total;
     }
+    public void setBet(Double desiredBet){
+        setCurrentBet(desiredBet);
+    }
     public void setup() {
         setup(5.0, 1000.0);
     }

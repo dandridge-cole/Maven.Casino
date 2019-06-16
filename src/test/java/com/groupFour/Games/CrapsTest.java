@@ -302,7 +302,7 @@ public class CrapsTest {
         Double expected = 15.00;
         Craps game = new Craps(new CrapsPlayer(x), dice, in, false,5, null);
         // When
-        //game.SetBet(expected);
+        game.setBet(expected);
         Double actual = game.getCurrentBet()
         // Assert
         Assert.assertEquals(expected, actual);
