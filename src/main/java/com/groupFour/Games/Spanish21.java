@@ -48,10 +48,8 @@ public class Spanish21 extends GamblingGame {
                 takeTurn();
             }else if (option == 2){
                 exit();
-            }else{
-                setup();
             }
-        }exit();
+        }
     }
 
     public boolean validateBet(double playerBalance) { //check if balance has enough to make minimum bet
@@ -82,10 +80,7 @@ public class Spanish21 extends GamblingGame {
         bet = 0.0;
         while (bet<getMinBet() || bet>getMaxBet()) {
             bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet());
-            if (bet == 999.0){
-                exit();
-                setup();
-            }else if (bet > spanishPlayer.getBalance()) {
+            if (bet > spanishPlayer.getBalance()) {
                 System.out.println("Not enough to place that bet.");
                 placeBet();
             }else {
@@ -122,7 +117,7 @@ public class Spanish21 extends GamblingGame {
                     System.out.println("BUST!");
                     spanishPlayer.subtractFromBalance(getCurrentBet());
                     System.out.println("Remaining Balance: $" + spanishPlayer.getBalance());
-                    takeTurn();
+                    setup();
                 }
                 resolve();
                 break;
@@ -144,7 +139,7 @@ public class Spanish21 extends GamblingGame {
                         System.out.println("BUST!");
                         spanishPlayer.subtractFromBalance(getCurrentBet());
                         System.out.println("Remaining Balance: $" + spanishPlayer.getBalance());
-                        takeTurn();
+                        setup();
                     }
                     dealerChoice();
                     break;
@@ -162,21 +157,21 @@ public class Spanish21 extends GamblingGame {
             System.out.println("DEALER BUSTS!");
             spanishPlayer.addToBalance(getCurrentBet());
             System.out.println("Remaining Balance: $" + spanishPlayer.getBalance());
-            takeTurn();
+            setup();
         } else if (calculateHandValue(dealerHand) > calculateHandValue(playerHand)){
             printHands();
             spanishPlayer.subtractFromBalance(getCurrentBet());
             System.out.println("Dealer Wins \n Remaining Balance: $" + spanishPlayer.getBalance());
-            takeTurn();
+            setup();
         } else if (calculateHandValue(dealerHand) < calculateHandValue(playerHand)){
             printHands();
             spanishPlayer.addToBalance(getCurrentBet());
             System.out.println("You win!\n" + "Remaining balance: " + spanishPlayer.getBalance());
-            takeTurn();
+            setup();
         } else {
             printHands();
             System.out.println("PUSH!\n" + "Remaining balance: " + spanishPlayer.getBalance());
-            takeTurn();
+            setup();
         }
     }
 
@@ -215,7 +210,7 @@ public class Spanish21 extends GamblingGame {
                     "   Y\n" +
                     "  _|_\n Have a free drink on the house!" );
             spanishPlayer.subtractFromBalance(getCurrentBet());
-            takeTurn();
+            setup();
         }
     }
 
@@ -224,7 +219,7 @@ public class Spanish21 extends GamblingGame {
             System.out.println(playerHand.handToStringAbrev());
             spanishPlayer.addToBalance(getCurrentBet());
             System.out.println("You got BlackJack!\n" + "Remaining balance: " + spanishPlayer.getBalance());
-            takeTurn();
+            setup();
         }
     }
     public void modifyDeck(){
