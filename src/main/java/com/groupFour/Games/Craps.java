@@ -61,8 +61,9 @@ public class Craps extends GamblingGame {
         return (desiredBet >= getMinBet() && desiredBet <= getMaxBet() && desiredBet <= player.getBalance());
     }
     public Integer lastRollTotal() {
-        // returns sum of the last dice roll
-        return null;
+        Integer total = 0;
+        for(Integer n : dice.getDiceResult()) total += n;
+        return total;
     }
     public void setup() {
         setup(5.0, 1000.0);
