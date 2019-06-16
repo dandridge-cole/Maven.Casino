@@ -303,7 +303,7 @@ public class CrapsTest {
         Craps game = new Craps(new CrapsPlayer(x), dice, in, false,5, null);
         // When
         game.setBet(expected);
-        Double actual = game.getCurrentBet()
+        Double actual = game.getCurrentBet();
         // Assert
         Assert.assertEquals(expected, actual);
     }
