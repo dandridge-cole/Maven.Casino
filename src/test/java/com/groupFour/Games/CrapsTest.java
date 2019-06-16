@@ -246,12 +246,29 @@ public class CrapsTest {
     @Test
     public void lastRollTotal() {
         //Given
-
         Craps game = new Craps(new CrapsPlayer(x), dice, in, false,5, true);
         //When
         dice.rollDice();
         Integer actual = dice.getDiceResult().get(0) + dice.getDiceResult().get(1);
         //Assert
         Assert.assertTrue(actual <= 12 && actual >= 2);
+    }
+
+    @Test
+    public void constructorTestAll() {
+        //Given
+        CrapsPlayer expectedCP = new CrapsPlayer(x);
+        Dice expectedDice = dice;
+        Console expectedConsole = in;
+        Boolean expPS = false;
+        Integer expPN = 0;
+        Boolean expPL = false;
+        Object[] expectedArr = {expectedCP, expectedDice, expectedConsole, expPS, expPN, expPL};
+        //When
+        Craps game = new Craps(expectedCP, expectedDice, expectedConsole, expPS, expPN, expPL);
+        Object[] actualArr = {game.getPlayer(), game.getDice(), game.getDisplay(), game.getPointPhaseState(),
+            game.getPointNum(), game.getPassLineBet()};
+        //Assert
+        Assert.assertArrayEquals(expectedArr, actualArr);
     }
 }
