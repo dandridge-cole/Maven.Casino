@@ -55,8 +55,7 @@ public class Craps extends GamblingGame {
         // pay the player on a win
     }
     public boolean validateBet(double desiredBet) {
-        // consider min/max bets, player balance, return true if valid bet
-        return true;
+        return (desiredBet >= getMinBet() && desiredBet <= getMaxBet() && desiredBet <= player.getBalance());
     }
     public Integer lastRollTotal() {
         // returns sum of the last dice roll
