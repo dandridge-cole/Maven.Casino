@@ -23,7 +23,7 @@ public class CrapsPlayer implements GamblingPlayer {
     }
 
     public Double getBalance(){
-        return balance;
+        return player.getWallet();
     }
 
     public void setBalance(Double amount) {
