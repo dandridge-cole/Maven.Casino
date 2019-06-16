@@ -1,18 +1,16 @@
 package com.groupFour.Games;
 import com.groupFour.*;
-import com.groupFour.Interfaces.GamblingGame;
-import com.groupFour.Interfaces.GamblingGameInterface;
 import com.groupFour.Interfaces.GamblingPlayer;
 import com.groupFour.Wraps.BlackjackPlayer;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.ByteArrayInputStream;
-import java.util.HashMap;
+import java.io.InputStream;
 
-import static org.junit.Assert.*;
 
 public class BlackjackTest {
+    private Console console=new Console(System.in,System.out);
+    private InputStream input;
 
     @Test
     public void placeBetTest() {
@@ -21,9 +19,10 @@ public class BlackjackTest {
         Double expected =50.0;
         String buffer = invalid+"\n"+expected;
         ByteArrayInputStream testInputStream = new ByteArrayInputStream(buffer.getBytes());
-        Console console = new Console(testInputStream,System.out);
-        Blackjack blackjack = new Blackjack(new BlackjackPlayer(), console);
-
+        console = new Console(testInputStream,System.out);
+        BlackjackPlayer bjPlayer = new BlackjackPlayer();
+        Blackjack blackjack = new Blackjack(bjPlayer, console);
+        blackjack.setup();
         blackjack.placeBet();
 
         System.out.println(blackjack.getCurrentBet());
@@ -32,8 +31,8 @@ public class BlackjackTest {
 
     @Test
     public void dealCards() {
-       // Blackjack blackjack = new Blackjack();
-       // blackjack.dealCards();
+        Blackjack blackjack = new Blackjack(console);
+        blackjack.dealCards();
 
 
         int expectedDealer = 2;
@@ -48,7 +47,7 @@ public class BlackjackTest {
 
     @Test
     public void dealCardToDealerTest() {
-        Blackjack blackjack = new Blackjack();
+        Blackjack blackjack = new Blackjack(console);
         blackjack.dealCardToDealer(3);
 
         int expected = 3;
@@ -61,7 +60,7 @@ public class BlackjackTest {
 
     @Test
     public void dealCardToUser() {
-        Blackjack blackjack = new Blackjack();
+        Blackjack blackjack = new Blackjack(console);
         Hand hand = new Hand();
         BlackjackPlayer player = new BlackjackPlayer();
         blackjack.dealCardToUser(3);
@@ -79,21 +78,21 @@ public class BlackjackTest {
 
     @Test
     public void validateBet() {
-//        Blackjack blackjack = new Blackjack();
-//        blackjack.setup();
+        Blackjack blackjack = new Blackjack(console);
+        blackjack.setup();
         Player player = new Player("Bob", 5.0);
         BlackjackPlayer bjPlayer = new BlackjackPlayer(player);
         bjPlayer.setBalance(555.0);
         System.out.println(bjPlayer.getBalance());
-//        System.out.println(blackjack.getMinBet());
-//        Assert.assertTrue(blackjack.validateBet(bjPlayer.getBalance()));
+        System.out.println(blackjack.getMinBet());
+        Assert.assertTrue(blackjack.validateBet(bjPlayer.getBalance()));
 
 
     }
 
     @Test
     public void validateBetFalse() {
-        Blackjack blackjack = new Blackjack();
+        Blackjack blackjack = new Blackjack(console);
         blackjack.setup();
         Player player = new Player("Bob", 5.0);
         BlackjackPlayer bjPlayer = new BlackjackPlayer(player);
@@ -111,9 +110,8 @@ public class BlackjackTest {
 
     @Test
     public void calculateHandValueTest(){
-        Blackjack blackjack = new Blackjack();
+        Blackjack blackjack = new Blackjack(console);
         Hand hand = new Hand();
-        blackjack.setup();
         Card card = new Card(Card.Rank.ACE, Card.Suit.SPADES);
         Card card2 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
         Card card3 = new Card(Card.Rank.SEVEN, Card.Suit.SPADES);
@@ -129,6 +127,47 @@ public class BlackjackTest {
     }
 
     @Test
-    public void calculateHandValue() {
+    public void checkForDealerBj() {
+
+
     }
+
+    @Test
+    public void checkForUserBj() {
+        Blackjack blackjack = new Blackjack(console);
+        Hand hand = new Hand();
+        Card card = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card card2 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        hand.addCard(card);
+        hand.addCard(card2);
+
+        blackjack.checkForUserBj();
+
+    }
+
+    @Test
+    public void checkForBust() {
+    }
+
+
+    /*@Test
+    public void checkForBust() {
+        Blackjack blackjack = new Blackjack(console);
+        Player player = new Player("Bob", 555.0);
+        BlackjackPlayer bjPlayer = new BlackjackPlayer(player);
+        blackjack.setCurrentBet(55.0);
+        Hand hand = new Hand();
+        Card card = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        Card card2 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
+        Card card3 = new Card(Card.Rank.SEVEN, Card.Suit.SPADES);
+        hand.addCard(card);
+        hand.addCard(card2);
+        hand.addCard(card3);
+
+        double expected = 500;
+        checkForBust();
+
+        Assert.assertEquals(expected,bjPlayer.getBalance());
+
+    }*/
 }
