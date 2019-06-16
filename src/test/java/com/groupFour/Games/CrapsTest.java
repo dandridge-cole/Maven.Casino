@@ -144,14 +144,15 @@ public class CrapsTest {
     @Test
     public void resolveTest(){
         // Given
-        Double expected = 10d;
+        Double expectedBet = 10d;
         Craps game = new Craps(new CrapsPlayer(x), dice, in, true,5, true);
-        game.setCurrentBet(expected);
+        game.setCurrentBet(expectedBet);
+        Double initial = game.getPlayer().getBalance();
         // When
         game.resolve();
         Double actual = game.getPlayer().getBalance();
         // Assert
-        Assert.assertEquals(expected, (Double)(actual - expected));
+        Assert.assertEquals(expectedBet, (Double) ((actual - initial)/2));
     }
 
     @Test

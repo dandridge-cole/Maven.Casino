@@ -59,7 +59,7 @@ public class Craps extends GamblingGame {
         else display.println("Your amount was invalid");
     }
     public void resolve() {
-        // pay the player on a win
+        player.addToBalance(2 * getCurrentBet());
     }
     public boolean validateBet(double desiredBet) {
         return (desiredBet >= getMinBet() && desiredBet <= getMaxBet() && desiredBet <= player.getBalance());
