@@ -1,7 +1,6 @@
 package com.groupFour.Games;
 import com.groupFour.*;
 import com.groupFour.Interfaces.GamblingGame;
-import com.groupFour.Interfaces.Game;
 import com.groupFour.Wraps.BlackjackPlayer;
 import java.util.HashMap;
 import static com.groupFour.Wraps.BlackjackPlayer.playerHand;
@@ -15,7 +14,6 @@ public class Blackjack extends GamblingGame {
     private HashMap<String, Integer> blackJackValue = new HashMap<>();
     private int handValue;
     private Console console;
-    protected int gameCount;
 
     public Blackjack(BlackjackPlayer player, Console console) {
         super();
@@ -64,7 +62,6 @@ public class Blackjack extends GamblingGame {
     public void takeTurn() {
         setMaxBet(500.0);
         setMinBet(10.0);
-        setCurrentBet(0.0);
         if (validateBet(bjPlayer.getBalance())){
             playerHand = new Hand();
             dealerHand = new Hand();
@@ -83,8 +80,8 @@ public class Blackjack extends GamblingGame {
         Double bet;
         bet = 0.0;
         while (bet<getMinBet()-1 || bet>getMaxBet()) {
-            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: " + getMaxBet() + "\n Enter 9 to Exit ");
-            if (bet == 9.0){
+            bet = console.getDoubleInput("How much would you like to bet?\n" + "Current minimum bet: " + getMinBet() + "\n" + "Current max bet: ");
+            if (bet == 999.0){
                 exit();
                 setup();
             }else if (bet > bjPlayer.getBalance()) {
@@ -119,7 +116,13 @@ public class Blackjack extends GamblingGame {
             case 1: //hit
                 dealCard(1, playerHand);
                 System.out.println("Player draws: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
-                checkForBust(playerHand);
+                if(checkForBust(playerHand)){
+                    printHands();
+                    System.out.println("BUST!");
+                    bjPlayer.subtractFromBalance(getCurrentBet());
+                    System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
+                    takeTurn();
+                }
                 resolve();
                 break;
 
@@ -135,7 +138,13 @@ public class Blackjack extends GamblingGame {
                     dealCard(1, playerHand);
                     setCurrentBet(getCurrentBet() * 2);
                     System.out.println("Player Doubled Down: \n" + BlackjackPlayer.playerHand.handToStringAbrev());
-                    checkForBust(playerHand);
+                    if(checkForBust(playerHand)){
+                        printHands();
+                        System.out.println("BUST!");
+                        bjPlayer.subtractFromBalance(getCurrentBet());
+                        System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
+                        takeTurn();
+                    }
                     dealerChoice();
                     break;
                 }
@@ -218,14 +227,10 @@ public class Blackjack extends GamblingGame {
         }
     }
 
-    public void checkForBust(Hand hand){
+    public boolean checkForBust(Hand hand){
         if (calculateHandValue(hand)>21){
-            printHands();
-            System.out.println("BUST!");
-            bjPlayer.subtractFromBalance(getCurrentBet());
-            System.out.println("Remaining Balance: $" + bjPlayer.getBalance());
-            takeTurn();
-        }
+            return true;
+        } else {return false;}
     }
 
     public void printHands(){
