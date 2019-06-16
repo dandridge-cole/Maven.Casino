@@ -142,6 +142,19 @@ public class CrapsTest {
     }
 
     @Test
+    public void resolveTest(){
+        // Given
+        Double expected = 10d;
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, true,5, true);
+        game.setCurrentBet(expected);
+        // When
+        game.resolve();
+        Double actual = game.getPlayer().getBalance();
+        // Assert
+        Assert.assertEquals(expected, (Double)(actual - expected));
+    }
+
+    @Test
     public void setup() {
         //Given
         Double minBet = 4.0;

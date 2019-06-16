@@ -47,12 +47,16 @@ public class Craps extends GamblingGame {
         }
     }
     public Boolean checkComeOutLoss(Integer lastRollTotal, Boolean bet){
-        // whether or not you lost the come out roll
-        return null;
+        if(bet){
+            return lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12;
+        } else {
+            return lastRollTotal == 7 || lastRollTotal == 11;
+        }
     }
     public void placeBet() {
-        // validate and place a bet made by player input
-        // call testable method
+        Double desiredBet = display.getDoubleInput("How much would you like to bet?");
+        if(validateBet(desiredBet)) setBet(desiredBet);
+        else display.println("Your amount was invalid");
     }
     public void resolve() {
         // pay the player on a win
