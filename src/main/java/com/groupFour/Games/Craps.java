@@ -40,8 +40,11 @@ public class Craps extends GamblingGame {
         // one cycle of the game
     }
     public Boolean checkComeOutWin(Integer lastRollTotal, Boolean bet){
-        // whether or not you won the come out roll
-        return null;
+        if(bet){
+            return lastRollTotal == 7 || lastRollTotal == 11;
+        } else {
+            return lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12;
+        }
     }
     public Boolean checkComeOutLoss(Integer lastRollTotal, Boolean bet){
         // whether or not you lost the come out roll
