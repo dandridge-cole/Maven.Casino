@@ -20,49 +20,81 @@ public class CrapsTest {
     @Test
     public void checkComeOutWin() {
         //Given
-        CrapsPlayer play = new CrapsPlayer();
-        Dice dice = new Dice(2);
-        Craps game = new Craps(play, dice, in, false,7, true);
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false,7, true);
         //When
         dice.rollDice();
-        Integer rollTotal = game.lastRollTotal();
-        Boolean actual = game.checkComeOutWin(rollTotal, game.getPassLineBet());
+        Integer lastRollTotal = game.lastRollTotal();
+        Boolean actual = game.checkComeOutWin(lastRollTotal, game.getPassLineBet());
         //Assert
-        Assert.assertTrue((game.getPassLineBet() && (rollTotal == 7 || rollTotal == 11)) == actual);
+        if(game.getPassLineBet()){
+            Assert.assertEquals((lastRollTotal == 7 || lastRollTotal == 11), actual);
+        } else {
+            Assert.assertEquals((lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12), actual);
+        }
+    }
 
-
+    @Test
+    public void checkComeOutWin2craps() {
+        //Given
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false,7, false);
+        //When
+        dice.rollDice();
+        Integer lastRollTotal = game.lastRollTotal();
+        Boolean actual = game.checkComeOutWin(lastRollTotal, game.getPassLineBet());
+        //Assert
+        if(game.getPassLineBet()){
+            Assert.assertEquals((lastRollTotal == 7 || lastRollTotal == 11), actual);
+        } else {
+            Assert.assertEquals((lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12), actual);
+        }
     }
 
     @Test
     public void checkComeOutLoss() {
         //Given
-        CrapsPlayer play = new CrapsPlayer();
-
-        Craps game = new Craps(play, dice, in, false,7, true);
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false,7, true);
         //When
         dice.rollDice();
-        Integer actual = dice.getDiceResult().get(0) + dice.getDiceResult().get(1);
+        Integer lastRollTotal = game.lastRollTotal();
+        Boolean actual = game.checkComeOutLoss(lastRollTotal, game.getPassLineBet());
         //Assert
-        Assert.assertTrue(actual ==12 || actual==3 || actual ==2);
+        if(game.getPassLineBet()){
+            Assert.assertEquals((lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12), actual);
+        } else {
+            Assert.assertEquals((lastRollTotal == 7 || lastRollTotal == 11), actual);
+        }
+    }
 
-
+    @Test
+    public void checkComeOutLoss2() {
+        //Given
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false,7, false);
+        //When
+        dice.rollDice();
+        Integer lastRollTotal = game.lastRollTotal();
+        Boolean actual = game.checkComeOutLoss(lastRollTotal, game.getPassLineBet());
+        //Assert
+        if(game.getPassLineBet()){
+            Assert.assertEquals((lastRollTotal == 2 || lastRollTotal == 3 || lastRollTotal == 12), actual);
+        } else {
+            Assert.assertEquals((lastRollTotal == 7 || lastRollTotal == 11), actual);
+        }
     }
 
 
-//    @Test
-//    public void placeBet() {
-//        //Given
-//        Double bet = 5.0;
-//        Integer value = 6;
-//        CrapsPlayer player = new CrapsPlayer();
-//        Craps game = new Craps(player, dice, in, false,value, true);
-//
-//        //When
-//        game.placeBet(bet);
-//        Double actual = game.getCurrentBet();
-//        //Assert
-//        Assert.assertEquals(bet, actual);
-//    }
+    @Test
+    public void placeBet() {
+        //Given
+        CrapsPlayer player = new CrapsPlayer();
+        Craps game = new Craps(player, dice, in, false,0, true);
+        Double unexpected = game.getCurrentBet();
+
+        //When
+        game.placeBet();
+        Double actual = game.getCurrentBet();
+        //Assert
+        Assert.assertNotEquals(unexpected, actual);
+    }
 
     @Test
     public void resolve() {

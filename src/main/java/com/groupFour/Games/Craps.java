@@ -34,32 +34,43 @@ public class Craps extends GamblingGame {
         this(new CrapsPlayer(),console);
     }
 
+    // Get/set currentBet(), minBet(), maxBet()
+
+    public void takeTurn() {
+        // one cycle of the game
+    }
     public Boolean checkComeOutWin(Integer lastRollTotal, Boolean bet){
+        // whether or not you won the come out roll
         return null;
     }
     public Boolean checkComeOutLoss(Integer lastRollTotal, Boolean bet){
+        // whether or not you lost the come out roll
         return null;
     }
     public void placeBet() {
-
+        // validate and place a bet made by player input
     }
     public void resolve() {
+        // pay the player on a win
     }
     public boolean validateBet(double desiredBet) {
+        // consider min/max bets, player balance, return true if valid bet
         return true;
     }
-    public void takeTurn() {
+    public Integer lastRollTotal() {
+        // returns sum of the last dice roll
+        return null;
+    }
+    public void setup() {
+        setup(5.0, 1000.0);
     }
     public void setup(Double min, Double max){
         // Set min/max bet
     }
-    // Get/set currentBet(), minBet(), maxBet()
-    public CrapsPlayer getPlayer() {
-        return player;
-    }
     public Dice getDice() {
         return dice;
     }
+
     public Console getDisplay() {
         return display;
     }
@@ -72,14 +83,11 @@ public class Craps extends GamblingGame {
     public Boolean getPassLineBet() {
         return passLineBet;
     }
+    public CrapsPlayer getPlayer() {
+        return player;
+    }
     public void setPassLineBet(Boolean passLineBet) {
         this.passLineBet = passLineBet;
-    }
-    public Integer lastRollTotal() {
-        return null;
-    }
-    public void setup() {
-
     }
 }
 
