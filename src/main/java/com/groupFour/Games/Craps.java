@@ -49,6 +49,7 @@ public class Craps extends GamblingGame {
     }
     public void placeBet() {
         // validate and place a bet made by player input
+        // call testable method
     }
     public void resolve() {
         // pay the player on a win
