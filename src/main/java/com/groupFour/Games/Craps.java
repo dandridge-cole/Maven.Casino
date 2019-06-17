@@ -44,7 +44,8 @@ public class Craps extends GamblingGame {
         String input = "";
         displayWaitForInput("You're the shooter");
         setPassLineBet(true);
-        switch(display.getIntegerInput("Choose a bet: " +
+        pointPhaseState = true;
+        switch(display.getIntegerInput("Choose a bet: \n" +
                 "(1)Pass Line\n(2)Don't Pass Line\n")){
             case 1:{
                 setPassLineBet(true);
@@ -62,22 +63,27 @@ public class Craps extends GamblingGame {
         dice.rollDice();
         display.println("The dice have been rolled. It's a " + lastRollTotal());
         if(checkComeOutWin(lastRollTotal(), getPassLineBet())){
-            // Win
+            display.println(String.format("You won $%.2f.", getCurrentBet()));
             resolve();
             pointPhaseState = false;
-        }
-        if(checkComeOutLoss(lastRollTotal(), getPassLineBet())){
             if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
-                exit();
-                pointPhaseState = false;
+                isDonePlaying();
             }
         }
+        if(checkComeOutLoss(lastRollTotal(), getPassLineBet())){
+            display.println("You lose.");
+            if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
+                exit();
+            }
+            pointPhaseState = false;
+        }
         pointNum = lastRollTotal();
+        displayWaitForInput("The point has been established at: " + getPointNum());
         while(pointPhaseState){
-            displayWaitForInput("The point has been established at: " + getPointNum());
             dice.rollDice();
             display.println("The dice have been rolled. It's a " + lastRollTotal());
             if(pointRollResult(pointNum, getPassLineBet())){
+                display.println(String.format("You won $%.2f.", getCurrentBet()));
                 resolve();
                 pointPhaseState = false;
             }
@@ -115,9 +121,8 @@ public class Craps extends GamblingGame {
         return (desiredBet >= getMinBet() && desiredBet <= getMaxBet() && desiredBet <= player.getBalance());
     }
     public Integer lastRollTotal() {
-        Integer total = 0;
-        for(Integer n : dice.getDiceResult()) total += n;
-        return total;
+        Integer size = dice.getDiceResult().size();
+        return dice.getDiceResult().get(size-1) + dice.getDiceResult().get(size-2);
     }
     public void setBet(Double desiredBet){
         player.subtractFromBalance(desiredBet);
