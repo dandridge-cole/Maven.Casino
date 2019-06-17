@@ -38,6 +38,6 @@ public class PlayerTest {
         //player.setName();
         // Then (we expect to get the given name from the dog)
         //String name = player.getName();
-        Assert.assertEquals(player.getName(), "Player1");
+        Assert.assertEquals(player.getName(), "Player 1");
     }
 }

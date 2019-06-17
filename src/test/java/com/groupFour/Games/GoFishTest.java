@@ -34,13 +34,13 @@ public class GoFishTest {
         assertArrayEquals(expectedPlayer, actual);
    }
 
-    @Test
+   /* @Test
     public void askForInputTest() {
         int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
         int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
         GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
         game.askForInput();
-    }
+    }*/
 
     @Test
     public void checkIfBinsContainTest() {
