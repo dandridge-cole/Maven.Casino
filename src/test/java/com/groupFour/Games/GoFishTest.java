@@ -15,14 +15,6 @@ public class GoFishTest {
     private Console console;
     private InputStream input;
 
-    @Test
-    public void setupTest() {
-        Integer expected = 1;
-        input = new ByteArrayInputStream(expected.toString().getBytes());
-        console = new Console(input, System.out );
-        GoFish gofish = new GoFish(console);
-        gofish.setup();
-    }
 
     @Test
     public void getPlayerBinTest() {
@@ -34,13 +26,6 @@ public class GoFishTest {
         assertArrayEquals(expectedPlayer, actual);
    }
 
-    @Test
-    public void askForInputTest() {
-        int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
-        int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
-        GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
-        game.askForInput();
-    }
 
     @Test
     public void checkIfBinsContainTest() {
@@ -85,10 +70,6 @@ public class GoFishTest {
     }
 
     @Test
-    public void setWonMessage() {
-    }
-
-    @Test
     public void goFishMessage() {
         int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
         int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
@@ -116,10 +97,6 @@ public class GoFishTest {
     }
 
     @Test
-    public void turnOverMessage() {
-    }
-
-    @Test
     public void houseAsksFor() {
         int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
         int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
@@ -134,5 +111,22 @@ public class GoFishTest {
         GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
         game.viewHand();
     }
+
+//    @Test
+//    public void askForInputTest() {
+//        int[] player = {0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+//        int[] house = {0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1};
+//        GoFish game = new GoFish(new Console(System.in, System.out), new Deck(), house, player);
+//        game.askForInput();
+//    }
+
+    //    @Test
+//    public void setupTest() {
+//        Integer expected = 1;
+//        input = new ByteArrayInputStream(expected.toString().getBytes());
+//        console = new Console(input, System.out );
+//        GoFish gofish = new GoFish(console);
+//        gofish.setup();
+//    }
 
 }
