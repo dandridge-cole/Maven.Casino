@@ -47,7 +47,6 @@ public class Deck {
 
     //used to customize the draw Stack for certain games
     public void removeCardsFromDraw(Card.Rank rank){
-        System.out.println("Removing " + rank);
         for (int i = 0; i < drawSize(); i++) {
             if (draw.get(i).getRank().equals(rank)) {
                 draw.remove(draw.get(i));
