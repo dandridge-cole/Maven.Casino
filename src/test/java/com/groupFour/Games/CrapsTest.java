@@ -233,13 +233,10 @@ public class CrapsTest {
         Boolean actual = game.getPassLineBet();
         //Assert
         Assert.assertEquals(value, actual);
-
-
-
     }
 
     @Test
-    public void lastRollTotal() {
+    public void lastRollTotalTest() {
         //Given
         Craps game = new Craps(new CrapsPlayer(x), dice, in, false,5, true);
         //When
@@ -301,5 +298,29 @@ public class CrapsTest {
         Double actual = game.getCurrentBet();
         // Assert
         Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void pointRollResult(){
+        // Given
+        Integer pointNum = 5;
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false, pointNum, true);
+        dice.rollDice();
+        // When
+        Boolean actual = game.pointRollResult(pointNum, game.getPassLineBet());
+        //
+        if(game.getPassLineBet()){
+            if(game.lastRollTotal() == pointNum){
+                Assert.assertTrue(actual);
+            } else {
+                Assert.assertFalse(actual);
+            }
+        } else if(!game.getPassLineBet()){
+            if(game.lastRollTotal() == pointNum){
+                Assert.assertFalse(actual);
+            } else {
+                Assert.assertTrue(actual);
+            }
+        }
     }
 }

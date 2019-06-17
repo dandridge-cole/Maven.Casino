@@ -38,10 +38,49 @@ public class Craps extends GamblingGame {
 
     public void setup() {
         setup(5.0, 1000.0);
-        while(!isDonePlaying()){}
+        while(!isDonePlaying())takeTurn();
     }
     public void takeTurn() {
-        // one cycle of the game
+        String input = "";
+        displayWaitForInput("You're the shooter");
+        setPassLineBet(true);
+        switch(display.getIntegerInput("Choose a bet: " +
+                "(1)Pass Line\n(2)Don't Pass Line\n")){
+            case 1:{
+                setPassLineBet(true);
+                break;
+            }
+            case 2:{
+                setPassLineBet(false);
+                break;
+            }
+            default:{
+                takeTurn();
+            }
+        }
+        placeBet();
+        dice.rollDice();
+        display.println("The dice have been rolled. It's a " + lastRollTotal());
+        if(checkComeOutWin(lastRollTotal(), getPassLineBet())){
+            resolve();
+            pointPhaseState = false;
+        }
+        if(checkComeOutLoss(lastRollTotal(), getPassLineBet())){
+            if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
+                exit();
+                pointPhaseState = false;
+            }
+        }
+        pointNum = lastRollTotal();
+        while(pointPhaseState){
+            displayWaitForInput("The point has been established at: " + getPointNum());
+            dice.rollDice();
+            display.println("The dice have been rolled. It's a " + lastRollTotal());
+        }
+    }
+    public void displayWaitForInput(String text){
+        display.println(text + "\n\n");
+        display.getStringInput("Press Enter");
     }
     public Boolean checkComeOutWin(Integer lastRollTotal, Boolean bet){
         if(bet){
@@ -58,12 +97,14 @@ public class Craps extends GamblingGame {
         }
     }
     public void placeBet() {
-        Double desiredBet = display.getDoubleInput("How much would you like to bet?");
+        Double desiredBet = display.getDoubleInput("How much will you bet?");
         if(validateBet(desiredBet)) setBet(desiredBet);
         else display.println("Your amount was invalid");
     }
     public void resolve() {
+        display.println(String.format("You gained $%.2f", getCurrentBet()));
         player.addToBalance(2 * getCurrentBet());
+        display.println(String.format("Your total funds: $%.2f", player.getBalance()));
     }
     public boolean validateBet(double desiredBet) {
         return (desiredBet >= getMinBet() && desiredBet <= getMaxBet() && desiredBet <= player.getBalance());
@@ -74,16 +115,20 @@ public class Craps extends GamblingGame {
         return total;
     }
     public void setBet(Double desiredBet){
+        player.subtractFromBalance(desiredBet);
         setCurrentBet(desiredBet);
     }
     public void setup(Double min, Double max){
         setMinBet(min);
         setMaxBet(max);
     }
+    public Boolean pointRollResult(Integer pointNum, Boolean bet) {
+        return (bet && lastRollTotal() == pointNum) || (!bet && lastRollTotal() == 7);
+    }
+
     public Dice getDice() {
         return dice;
     }
-
     public Console getDisplay() {
         return display;
     }
@@ -99,6 +144,7 @@ public class Craps extends GamblingGame {
     public CrapsPlayer getPlayer() {
         return player;
     }
+
     public void setPassLineBet(Boolean passLineBet) {
         this.passLineBet = passLineBet;
     }
