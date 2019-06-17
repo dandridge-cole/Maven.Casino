@@ -113,16 +113,6 @@ public class GamblingGameTest {
         Double actual = bjGame.getCurrentBet();
         Assert.assertEquals(expected,actual);
     }
-
-    @Test
-    public void setCurrentBetNegative() {
-        Spanish21 s21Game = new Spanish21(console);
-        Double invalidBet = -10.00;
-        Double expected = null;
-        s21Game.setCurrentBet(invalidBet);
-        Double actual = s21Game.getCurrentBet();
-        Assert.assertEquals(expected,actual);
-    }
 /*
     @Test
     public void setCurrentBetBeforeMax() {
@@ -152,7 +142,7 @@ public class GamblingGameTest {
         s21Game.setMinBet(50.00);
         s21Game.setMaxBet(500.00);
         Double invalidBet = 1000.00;
-        Double expected = null;
+        Double expected = 1000.00;
         s21Game.setCurrentBet(invalidBet);
         Double actual = s21Game.getCurrentBet();
         Assert.assertEquals(expected,actual);
@@ -164,7 +154,7 @@ public class GamblingGameTest {
         s21Game.setMinBet(50.00);
         s21Game.setMaxBet(500.00);
         Double invalidBet = 10.00;
-        Double expected = null;
+        Double expected = 50.00;
         s21Game.setCurrentBet(invalidBet);
         Double actual = s21Game.getCurrentBet();
         Assert.assertEquals(expected,actual);
