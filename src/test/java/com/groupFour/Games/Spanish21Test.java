@@ -2,6 +2,7 @@ package com.groupFour.Games;
 
 import com.groupFour.Card;
 import com.groupFour.Console;
+import com.groupFour.Deck;
 import com.groupFour.Hand;
 import com.groupFour.Wraps.Spanish21Player;
 import org.junit.Assert;
@@ -142,4 +143,14 @@ public class Spanish21Test {
 
     }
 
+    @Test
+    public void modifyDeckTest() {
+        Spanish21 spanish21 = new Spanish21(console);
+        Deck deck = new Deck();
+        spanish21.modifyDeck(deck);
+        int actual = deck.drawSize();
+        int expected = 48;
+
+        Assert.assertEquals(actual, expected);
+    }
 }
