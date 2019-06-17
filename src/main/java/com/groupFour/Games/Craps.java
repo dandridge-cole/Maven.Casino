@@ -62,6 +62,7 @@ public class Craps extends GamblingGame {
         dice.rollDice();
         display.println("The dice have been rolled. It's a " + lastRollTotal());
         if(checkComeOutWin(lastRollTotal(), getPassLineBet())){
+            // Win
             resolve();
             pointPhaseState = false;
         }
@@ -76,6 +77,10 @@ public class Craps extends GamblingGame {
             displayWaitForInput("The point has been established at: " + getPointNum());
             dice.rollDice();
             display.println("The dice have been rolled. It's a " + lastRollTotal());
+            if(pointRollResult(pointNum, getPassLineBet())){
+                resolve();
+                pointPhaseState = false;
+            }
         }
     }
     public void displayWaitForInput(String text){
