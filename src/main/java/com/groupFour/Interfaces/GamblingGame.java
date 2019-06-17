@@ -1,7 +1,7 @@
 package com.groupFour.Interfaces;
 
 abstract public class GamblingGame extends Game implements GamblingGameInterface{
-    private Double currentBet;
+    protected Double currentBet;
     private Double minBet;
     private Double maxBet;
 

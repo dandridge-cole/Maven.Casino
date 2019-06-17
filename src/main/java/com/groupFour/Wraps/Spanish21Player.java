@@ -7,34 +7,34 @@ import com.groupFour.Player;
 public class Spanish21Player implements GamblingPlayer {
 
     private Player player;
-    private Hand hand;
-    private  Double balance;
+    public static Hand playerHand;
 
     public Spanish21Player(Player player) {
         this.player = player;
-        this.balance=this.player.getWallet();
-        this.hand=new Hand();
+        this.playerHand=new Hand();
     }
 
     public Spanish21Player() {
         this.player=new Player();
-        this.balance=this.player.getWallet();
-        this.hand=new Hand();
+        this.playerHand=new Hand();
     }
 
     public Double getBalance(){
-        return null;
+        return player.getWallet();
     }
 
     public void setBalance(Double amount) {
+        player.setWallet(amount);
 
     }
 
     public void addToBalance(Double amount) {
+        player.setWallet(player.getWallet()+amount);
 
     }
 
     public void subtractFromBalance(Double amount) {
+        player.setWallet(player.getWallet()-amount);
 
     }
 }
