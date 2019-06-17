@@ -205,7 +205,7 @@ public class Blackjack extends GamblingGame {
             System.out.println("Dealer got BlackJack! You Lose!\n" + "Remaining balance: " + bjPlayer.getBalance() +
                     "\n" +
                     " \\~~~/\n" +
-                    "  \\_/\n" +
+                    "  \\ /\n" +
                     "   Y\n" +
                     "  _|_\n Have a free drink on the house!" );
             bjPlayer.subtractFromBalance(getCurrentBet());

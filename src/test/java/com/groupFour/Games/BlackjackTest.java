@@ -182,4 +182,5 @@ public class BlackjackTest {
         Assert.assertFalse(blackjack.checkForBust(playerHand));
 
     }
+
 }

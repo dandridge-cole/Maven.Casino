@@ -64,7 +64,7 @@ public class Spanish21 extends GamblingGame {
             playerHand = new Hand();
             dealerHand = new Hand();
             deck = new Deck();
-            modifyDeck();
+            modifyDeck(deck);
             deck.shuffle();
             placeBet();
             dealCards();
@@ -222,7 +222,7 @@ public class Spanish21 extends GamblingGame {
             setup();
         }
     }
-    public void modifyDeck(){
+    public void modifyDeck(Deck deck){
         deck.removeCardsFromDraw(Card.Rank.TEN);
     }
 
