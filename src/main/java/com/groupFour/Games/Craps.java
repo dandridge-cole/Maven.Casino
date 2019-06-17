@@ -81,7 +81,7 @@ public class Craps extends GamblingGame {
         displayWaitForInput("The point has been established at: " + getPointNum());
         while(pointPhaseState){
             dice.rollDice();
-            display.println("The dice have been rolled. It's a " + lastRollTotal());
+            displayWaitForInput("The dice have been rolled. It's a " + lastRollTotal());
             if(pointRollResult(pointNum, getPassLineBet())){
                 display.println(String.format("You won $%.2f.", getCurrentBet()));
                 resolve();
