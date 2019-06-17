@@ -23,18 +23,18 @@ public class CrapsPlayer implements GamblingPlayer {
     }
 
     public Double getBalance(){
-        return null;
+        return player.getWallet();
     }
 
     public void setBalance(Double amount) {
-
+        player.setWallet(amount);
     }
 
     public void addToBalance(Double amount) {
-
+        player.setWallet(player.getWallet() + amount);
     }
 
     public void subtractFromBalance(Double amount) {
-
+        player.setWallet(player.getWallet() - amount);
     }
 }

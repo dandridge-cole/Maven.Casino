@@ -5,7 +5,15 @@ abstract public class GamblingGame extends Game implements GamblingGameInterface
     private Double minBet;
     private Double maxBet;
 
-    public GamblingGame() {super(); }
+    public GamblingGame() {
+        super();
+    }
+
+    public GamblingGame(Double currentBet, Double minBet, Double maxBet) {
+        this.currentBet = currentBet;
+        this.minBet = minBet;
+        this.maxBet = maxBet;
+    }
 
     public Double getCurrentBet() {
         return currentBet;
