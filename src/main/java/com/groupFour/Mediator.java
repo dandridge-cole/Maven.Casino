@@ -32,8 +32,8 @@ class   Mediator {
 
     void run(){
         initGamesList();
+        initBannedPlayers();
         while(!quit) {
-            initBannedPlayers();
             initPlayer(this.player);
             if(!quit)initPlayerWallet(this.player);
             mainMenu();
@@ -77,7 +77,10 @@ class   Mediator {
     }
 
     void initBannedPlayers(){
+
         this.bannedPlayers.add("anish patel");
+        this.bannedPlayers.add("donald trump");
+        this.bannedPlayers.add("bob's mom");
     }
 
     void isBannedPlayer(String name){
@@ -113,7 +116,7 @@ class   Mediator {
     Double confirmValidWalletIncrease(Double amount, Player player) {  // could be private except for testing
         while(amount<=0||amount>999999999) {
             if (amount <= 0) {
-                amount = console.getDoubleInput("I'm sorry, but we do not exchange negative or zero balances. Please enter a valid amount.");
+                amount = console.getDoubleInput("I'm sorry, but we do not exchange negative balances. Please enter a valid amount.");
             }
             else{
                 amount = console.getDoubleInput("I'm sorry, but we are not able to exchange billions in individual transactions. Please enter a reasonable amount.");
@@ -137,11 +140,11 @@ class   Mediator {
                 "****************\n" +
                 "* CASINO LOBBY *\n" +
                 "****************\n" +
-                "\nHow may we serve you today?");
-        builder.append(String.format("\n\t%d: Choose a game", menuItem++));
-        builder.append(String.format("\n\t%d: Increase Balance", menuItem++));
-        builder.append(String.format("\n\t%d: Reset Player", menuItem++));
-        builder.append(String.format("\n\t%d: Quit\n", menuItem));
+                "\nHow may we serve you today?"+
+                String.format("\n\t%d: Choose a game", menuItem++)+
+                String.format("\n\t%d: Increase Balance", menuItem++)+
+                String.format("\n\t%d: Reset Player", menuItem++)+
+                String.format("\n\t%d: Quit\n", menuItem));
         return console.getStringInput(builder.toString());
     }
 

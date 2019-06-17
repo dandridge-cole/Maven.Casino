@@ -7,8 +7,6 @@ import com.groupFour.Games.Spanish21;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class GamblingGameTest {
     Console console = new Console(System.in,System.out);
 
