@@ -38,7 +38,9 @@ public class Craps extends GamblingGame {
 
     public void setup() {
         setup(5.0, 1000.0);
-        while(!isDonePlaying())takeTurn();
+        while(!isDonePlaying()){
+            takeTurn();
+        }
     }
     public void takeTurn() {
         String input = "";
@@ -67,25 +69,37 @@ public class Craps extends GamblingGame {
             resolve();
             pointPhaseState = false;
             if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
-                isDonePlaying();
+                exit();
+                return;
             }
         }
         if(checkComeOutLoss(lastRollTotal(), getPassLineBet())){
             display.println("You lose.");
             if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
                 exit();
+                return;
             }
             pointPhaseState = false;
         }
         pointNum = lastRollTotal();
-        displayWaitForInput("The point has been established at: " + getPointNum());
         while(pointPhaseState){
+        displayWaitForInput("Your point is: " + getPointNum());
             dice.rollDice();
             displayWaitForInput("The dice have been rolled. It's a " + lastRollTotal());
             if(pointRollResult(pointNum, getPassLineBet())){
                 display.println(String.format("You won $%.2f.", getCurrentBet()));
                 resolve();
                 pointPhaseState = false;
+                if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
+                    exit();
+                    return;
+                }
+            } else if(pointRollResultLose(pointNum, getPassLineBet())){
+                display.println("You lose.");
+                if(display.getStringInput("Do you want to try again? (y/n)").toLowerCase().equals("n")) {
+                    exit();
+                    return;
+                }
             }
         }
     }
@@ -133,9 +147,19 @@ public class Craps extends GamblingGame {
         setMaxBet(max);
     }
     public Boolean pointRollResult(Integer pointNum, Boolean bet) {
-        return (bet && lastRollTotal() == pointNum) || (!bet && lastRollTotal() == 7);
+        if((bet && lastRollTotal() == pointNum) || (!bet && lastRollTotal() == 7)){
+            return true;
+        } else {
+            return false;
+        }
     }
-
+    public Boolean pointRollResultLose(Integer pointNum, Boolean bet) {
+        if((bet && lastRollTotal() == 7) || (!bet && lastRollTotal() == pointNum)){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public Dice getDice() {
         return dice;
     }

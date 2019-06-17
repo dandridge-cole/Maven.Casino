@@ -323,4 +323,28 @@ public class CrapsTest {
             }
         }
     }
+
+    @Test
+    public void pointRollResultLoseTest(){
+        // Given
+        Integer pointNum = 5;
+        Craps game = new Craps(new CrapsPlayer(x), dice, in, false, pointNum, true);
+        dice.rollDice();
+        // When
+        Boolean actual = game.pointRollResultLose(pointNum, game.getPassLineBet());
+        //
+        if(game.getPassLineBet()){
+            if(game.lastRollTotal() == 7){
+                Assert.assertTrue(actual);
+            } else {
+                Assert.assertFalse(actual);
+            }
+        } else if(!game.getPassLineBet()){
+            if(game.lastRollTotal() == pointNum){
+                Assert.assertTrue(actual);
+            } else {
+                Assert.assertFalse(actual);
+            }
+        }
+    }
 }
