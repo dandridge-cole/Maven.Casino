@@ -1,34 +1,35 @@
 package com.groupFour.Games;
 import com.groupFour.*;
-import com.groupFour.Interfaces.GamblingPlayer;
+import com.groupFour.Interfaces.GamblingGame;
 import com.groupFour.Wraps.BlackjackPlayer;
 import org.junit.Assert;
 import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import static com.groupFour.Wraps.BlackjackPlayer.playerHand;
+
 
 public class BlackjackTest {
-    private Console console=new Console(System.in,System.out);
+    Console console;
     private InputStream input;
 
-    @Test
+    /*@Test
     public void placeBetTest() {
-
-        String invalid = "this isn't a number";
-        Double expected =50.0;
-        String buffer = invalid+"\n"+expected;
-        ByteArrayInputStream testInputStream = new ByteArrayInputStream(buffer.getBytes());
-        console = new Console(testInputStream,System.out);
         BlackjackPlayer bjPlayer = new BlackjackPlayer();
         Blackjack blackjack = new Blackjack(bjPlayer, console);
-        blackjack.setup();
+        Double bet =50.0;
+        String buffer = bet + "\n" + bet + "\n";
+        ByteArrayInputStream testInputStream = new ByteArrayInputStream(buffer.getBytes());
+        console = new Console(testInputStream,System.out);
+        blackjack.setMinBet(10.0);
+        blackjack.setMaxBet(500.0);
         blackjack.placeBet();
 
-        System.out.println(blackjack.getCurrentBet());
+        Assert.assertEquals(bet,blackjack.getCurrentBet());
 
     }
-
+*/
     @Test
     public void dealCards() {
         Blackjack blackjack = new Blackjack(console);
@@ -39,7 +40,7 @@ public class BlackjackTest {
         int expectedUser = 2;
 
         int actualDealer = Blackjack.dealerHand.getCards().size();
-        int actualUser = BlackjackPlayer.hand.getCards().size();
+        int actualUser = playerHand.getCards().size();
 
         Assert.assertEquals(expectedDealer,actualDealer);
         Assert.assertEquals(expectedUser, actualUser);
@@ -48,10 +49,11 @@ public class BlackjackTest {
     @Test
     public void dealCardToDealerTest() {
         Blackjack blackjack = new Blackjack(console);
-        blackjack.dealCardToDealer(3);
+        Hand dealerHand = new Hand();
+        blackjack.dealCard(3, dealerHand);
 
         int expected = 3;
-        int actual = Blackjack.dealerHand.getCards().size();
+        int actual = dealerHand.getCards().size();
 
         Assert.assertEquals(expected,actual);
         System.out.println(Blackjack.dealerHand.handToString());
@@ -61,22 +63,23 @@ public class BlackjackTest {
     @Test
     public void dealCardToUser() {
         Blackjack blackjack = new Blackjack(console);
-        Hand hand = new Hand();
+        Hand playerHand = new Hand();
         BlackjackPlayer player = new BlackjackPlayer();
-        blackjack.dealCardToUser(3);
+        blackjack.dealCard(3,playerHand);
 
         int expected = 3;
-        int actual = player.hand.getCards().size();
+        int actual = playerHand.getCards().size();
 
         Assert.assertEquals(expected,actual);
-        System.out.println(player.hand.handToStringAbrev());
+        System.out.println(playerHand.handToStringAbrev());
     }
 
     @Test
     public void resolve() {
+
     }
 
-    @Test
+   /* @Test
     public void validateBet() {
         Blackjack blackjack = new Blackjack(console);
         blackjack.setup();
@@ -103,7 +106,7 @@ public class BlackjackTest {
 
 
     }
-
+*/
     @Test
     public void takeTurn() {
     }
@@ -128,8 +131,15 @@ public class BlackjackTest {
 
     @Test
     public void checkForDealerBj() {
-
-
+        Blackjack blackjack = new Blackjack(console);
+        Hand dealerHand = new Hand();
+        Card card = new Card(Card.Rank.ACE, Card.Suit.SPADES);
+        Card card2 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        dealerHand.addCard(card);
+        dealerHand.addCard(card2);
+        blackjack.checkForDealerBj();
+        int expected = 21;
+        Assert.assertEquals(blackjack.calculateHandValue(dealerHand), expected);
     }
 
     @Test
@@ -140,34 +150,36 @@ public class BlackjackTest {
         Card card2 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
         hand.addCard(card);
         hand.addCard(card2);
-
         blackjack.checkForUserBj();
+        int expected = 21;
+        Assert.assertEquals(expected, blackjack.calculateHandValue(hand));
 
     }
 
     @Test
     public void checkForBust() {
-    }
-
-
-    /*@Test
-    public void checkForBust() {
         Blackjack blackjack = new Blackjack(console);
-        Player player = new Player("Bob", 555.0);
-        BlackjackPlayer bjPlayer = new BlackjackPlayer(player);
-        blackjack.setCurrentBet(55.0);
         Hand hand = new Hand();
         Card card = new Card(Card.Rank.TEN, Card.Suit.SPADES);
-        Card card2 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
-        Card card3 = new Card(Card.Rank.SEVEN, Card.Suit.SPADES);
+        Card card2 = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        Card card3 = new Card(Card.Rank.TEN, Card.Suit.DIAMONDS);
         hand.addCard(card);
         hand.addCard(card2);
         hand.addCard(card3);
+        Assert.assertTrue(blackjack.checkForBust(hand));
+    }
 
-        double expected = 500;
-        checkForBust();
 
-        Assert.assertEquals(expected,bjPlayer.getBalance());
+    @Test
+    public void checkForBust2() {
+        Blackjack blackjack = new Blackjack(console);
+        Hand playerHand = new Hand();
+        Card card = new Card(Card.Rank.TEN, Card.Suit.SPADES);
+        Card card2 = new Card(Card.Rank.FIVE, Card.Suit.SPADES);
+        playerHand.addCard(card);
+        playerHand.addCard(card2);
 
-    }*/
+        Assert.assertFalse(blackjack.checkForBust(playerHand));
+
+    }
 }
